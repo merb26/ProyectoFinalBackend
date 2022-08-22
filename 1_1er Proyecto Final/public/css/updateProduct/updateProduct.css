@@ -1,0 +1,17 @@
+body {
+  background-color: rgb(196, 153, 237);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+body h1 {
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+  margin-bottom: 30px;
+  font-size: 50px;
+}
+body .form {
+  width: 300px;
+}/*# sourceMappingURL=updateProduct.css.map */
