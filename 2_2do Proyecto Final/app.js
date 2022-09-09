@@ -3,12 +3,15 @@ const bodyParser = require("body-parser")
 
 const serverExpress = express()
 
-const routerProducts = require("./routes/routerProducts")
-const routerCar = require("./routes/routerCar")
+const { mongoDB } = require("./src/utils/connections")
+const routerProducts = require("./src/routes/routerProducts")
+const routerCar = require("./src/routes/routerCar")
 
 serverExpress.use(bodyParser.urlencoded({ extended: false }))
 serverExpress.use(express.json())
 serverExpress.use(express.static("public"))
+
+mongoDB()
 
 serverExpress.get("/", (req, res) => {
   res.render("index")
