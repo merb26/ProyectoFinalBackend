@@ -1,0 +1,30 @@
+body {
+  background-color: rgb(196, 153, 237);
+}
+body h1 {
+  text-align: center;
+  margin: 15px;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+}
+body .boxListProducts {
+  display: flex;
+}
+body .boxListProducts .product {
+  width: 300px;
+  margin: 15px;
+}
+body .boxListProducts .product .title {
+  display: flex;
+  direction: row;
+  justify-content: space-between;
+}
+body .boxListProducts .product .buttonAdministrator {
+  width: 100px;
+}
+body .buttons {
+  display: flex;
+}
+body .buttons .button {
+  width: 200px;
+}/*# sourceMappingURL=listProducts.css.map */

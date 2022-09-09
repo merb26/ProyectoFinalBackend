@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "sources": [
+    "listProducts.scss",
+    "listProducts.css"
+  ],
+  "names": [],
+  "mappings": "AAAA;EACI,oCAAA;ACCJ;ADCI;EACI,kBAAA;EACA,YAAA;EACA,8CAAA;EACA,iBAAA;ACCR;ADEI;EACI,aAAA;ACAR;ADEQ;EACI,YAAA;EACA,YAAA;ACAZ;ADEY;EACI,aAAA;EACA,cAAA;EACA,8BAAA;ACAhB;ADGY;EACI,YAAA;ACDhB;ADMI;EACI,aAAA;ACJR;ADMQ;EACI,YAAA;ACJZ",
+  "file": "listProducts.css"
+}
