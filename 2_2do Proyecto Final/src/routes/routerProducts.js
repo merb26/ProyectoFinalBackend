@@ -1,5 +1,5 @@
 const { Router } = require("express")
-const Container = require("../containers/fileManagement")
+const Container = require("../containers/file")
 
 const container = new Container("./files/products.json")
 

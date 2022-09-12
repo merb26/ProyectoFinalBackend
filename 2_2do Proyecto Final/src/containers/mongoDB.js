@@ -1,6 +1,8 @@
+const mongoDB = require("../utils/connections")
+
 class ContainerMongoDB {
-  constructor(nameFile) {
-    this.nameFile = nameFile
+  constructor(URL) {
+    mongoDB(URL)
   }
   /* -------------------------------------------------------------------------- */
   /*                                    save                                    */

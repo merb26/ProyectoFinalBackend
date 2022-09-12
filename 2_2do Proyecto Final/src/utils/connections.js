@@ -1,9 +1,7 @@
 const { mongoose } = require("mongoose")
 
-const mongoDB = async () => {
+const mongoDB = async URL => {
   try {
-    const URL =
-      "mongodb+srv://merb:XcKp9WciORH5TlCS@cluster0.4ryuos8.mongodb.net/test"
     await mongoose.connect(URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -14,4 +12,6 @@ const mongoDB = async () => {
   }
 }
 
-module.exports = { mongoDB }
+const firebase = async () => {}
+
+module.exports = { mongoDB, firebase }
