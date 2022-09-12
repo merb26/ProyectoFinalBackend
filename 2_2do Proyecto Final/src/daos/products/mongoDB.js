@@ -1,4 +1,4 @@
-const mongoDB = require("../../containers/mongoDB")
+const mongoDB = require("../../containers/mongoDB/productsMongoDB")
 
 class ProductsDaoMongo extends mongoDB {
   constructor() {

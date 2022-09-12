@@ -1,7 +1,7 @@
-const { mongoDB } = require("../utils/connections")
-const products = require("../models/products")
+const { mongoDB } = require("../../utils/connections")
+const products = require("../../models/products")
 
-class ContainerMongoDB {
+class ContainerProducts {
   constructor(URL) {
     mongoDB(URL)
   }
@@ -53,11 +53,6 @@ class ContainerMongoDB {
   async deleteById(_id) {
     await products.deleteOne({ _id })
   }
-
-  /* -------------------------------------------------------------------------- */
-  /*                                  deleteAll                                 */
-  /* -------------------------------------------------------------------------- */
-  async deleteAll() {}
 }
 
-module.exports = ContainerMongoDB
+module.exports = ContainerProducts
