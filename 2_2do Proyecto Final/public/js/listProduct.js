@@ -1,9 +1,10 @@
-const btnRemove = (e, id) => {
+const btnRemove = (e, index) => {
+  const id = document.querySelector(`#id${index}`)
   const fetchDELETE = {
     method: "DELETE",
   }
 
-  fetch(`/api/products/${id}`, fetchDELETE).then(
+  fetch(`/api/products/${id.value}`, fetchDELETE).then(
     setTimeout(() => {
       location.reload()
     }, 500)

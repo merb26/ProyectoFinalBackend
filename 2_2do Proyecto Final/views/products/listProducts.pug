@@ -7,22 +7,22 @@ html
         h1 Videojuegos
         |
         div(class="boxListProducts")
-            each product in products
+            each product, index in products
                 div(class="card product")
                     div(class="card-body title")
                         h4(class="card-title")=product.name
                         h4(class="card-title")="$" + product.price
-                        input(type="text" id="id" value=product.id hidden)
+                        input(type="text" id=`id${index}` value=product._id hidden)
                     img(src=`${product.urlPicture}` alt="..." class="card-img-top")
                     |
                     div(class="card-body")
                         p(class="card-text")=product.description
                         if isAdministrator
-                            form(action=`./products/formUpdate/${product.id}` method="GET")
+                            form(action=`./products/formUpdate/${product._id}` method="GET")
                                 input(class="m-2 btn btn-dark form-control buttonAdministrator" type="submit" value="Actualizar")
-                                input(class="m-2 btn btn-dark form-control buttonAdministrator" onclick=`return btnRemove(this,${product.id})` type="button" value="Eliminar")
+                                input(class="m-2 btn btn-dark form-control buttonAdministrator" onclick=`return btnRemove(this,${index})` type="button" value="Eliminar")
                         |
-                        form(action=`./car/${product.id}/products` method="POST")
+                        form(action=`./car/${product._id}/products` method="POST")
                             input(class="m-2 w-75 btn btn-dark form-control" type="submit" value="Agregar al carrito")              
         |
         div(class="buttons")
@@ -35,4 +35,4 @@ html
                     |
                     input(class="m-4 p-2 btn btn-dark form-control button" type="submit" value="Agregar producto")
         |
-        script(src="../../../js/listProduct.js") 
+        script(src="../../js/listProduct.js") 
