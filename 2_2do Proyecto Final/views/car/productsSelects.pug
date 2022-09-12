@@ -7,22 +7,24 @@ html
         h1 Carrito
         |
         div(class="boxListProducts")
-            each product in products
-                div(class="card product")
-                    div(class="card-body title")
-                        h4(class="card-title")=product.name
-                        h4(class="card-title")="$" + product.price
-                        input(type="text" id="id" value=product.id hidden)
-                    img(src=`${product.urlPicture}` alt="..." class="card-img-top")
-                    |
-                    div(class="card-body")
-                        p(class="card-text")=product.description
-                        input(class="m-2 btn btn-dark form-control buttonAdministrator" onclick=`return btnRemove(this,${product.id})` type="button" value="Eliminar")
+            if products
+                each product, index in products
+                    div(class="card product")
+                        div(class="card-body title")
+                            h4(class="card-title")=product.name
+                            h4(class="card-title")="$" + product.price
+                            input(type="text" id=`id${index}` value=product._id hidden)
+                        img(src=`${product.urlPicture}` alt="..." class="card-img-top")
+                        |
+                        div(class="card-body")
+                            p(class="card-text")=product.description
+                            input(class="m-2 btn btn-dark form-control buttonAdministrator" onclick=`return btnRemove(${index})` type="button" value="Eliminar")
 
         |
         div(class="buttons")
             form(action="../../../" method="get")
-                |
                 input(class="m-4 p-2 btn btn-dark form-control button" type="submit" value="Inicio")
+                |
+                input(class="m-4 p-2 btn btn-dark form-control button" onclick=`return btnRemoveCar()` type="button" value="Limpiar carrito")
         |
         script(src="../../../js/productsSelects.js") 
