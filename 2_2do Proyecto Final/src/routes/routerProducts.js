@@ -66,7 +66,9 @@ routerProducts.post("/", async (req, res) => {
   res.redirect("/api/products")
 })
 
-// Modificar producto
+/* -------------------------------------------------------------------------- */
+/*                             Modificar producto                             */
+/* -------------------------------------------------------------------------- */
 routerProducts.put("/:id", async (req, res) => {
   // container.update(product)
 
@@ -79,9 +81,13 @@ routerProducts.put("/:id", async (req, res) => {
   const id = req.params.id
   const product = { ...req.body, id }
   containerFirebase.update(product)
+
+  res.json({})
 })
 
-// Borrar producto
+/* -------------------------------------------------------------------------- */
+/*                               Borrar producto                              */
+/* -------------------------------------------------------------------------- */
 routerProducts.delete("/:id", (req, res) => {
   // container.deleteById(id)
 

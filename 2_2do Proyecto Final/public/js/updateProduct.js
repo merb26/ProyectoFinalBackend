@@ -1,4 +1,4 @@
-const btnUpdate = e => {
+const btnUpdate = () => {
   const id = document.querySelector("#id").value
   const timestamp = new Date()
   const name = document.querySelector("#name").value
@@ -7,8 +7,6 @@ const btnUpdate = e => {
   const urlPicture = document.querySelector("#urlPicture").value
   const price = document.querySelector("#price").value
   const stock = document.querySelector("#stock").value
-
-  console.log("+++++ " + id)
 
   const product = {
     timestamp,
@@ -23,10 +21,15 @@ const btnUpdate = e => {
   const fetchPUT = {
     method: "PUT",
     body: JSON.stringify(product),
-    headers: { "Content-type": "application/json; charset=UTF-8" },
+    headers: {
+      Accept: " application/json ",
+      "Content-Type": " application/json ",
+    },
   }
 
-  fetch(`/api/products/${id}`, fetchPUT).then(alert("Ha actualizado con éxito"))
-
-  return false
+  fetch(`/api/products/${id}`, fetchPUT)
+    .then(res => res.json())
+    .then(data => {
+      window.location.replace("/api/products")
+    })
 }
