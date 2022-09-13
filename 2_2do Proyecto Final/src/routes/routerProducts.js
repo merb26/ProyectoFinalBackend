@@ -3,7 +3,7 @@ const Container = require("../containers/file")
 const { ProductsDaoMongo } = require("../daos/products/mongoDB")
 const { ProductsDaoFirebase } = require("../daos/products/firebase")
 
-const container = new Container("./src/dbs/products.json")
+const container = new Container()
 const containerMongoDB = new ProductsDaoMongo()
 const containerFirebase = new ProductsDaoFirebase()
 
@@ -16,13 +16,14 @@ let isAdministrator = true
 /*                         Listar todos los productos                         */
 /* -------------------------------------------------------------------------- */
 routerProducts.get("/", async (req, res) => {
-  // const products = await container.getAll()
+  //File
+  const products = await container.getAll()
 
   //MongoDB
   // const products = await containerMongoDB.getAll()
 
   //Firebase
-  const products = await containerFirebase.getAll()
+  // const products = await containerFirebase.getAll()
 
   res.render("./products/listProducts", { products, isAdministrator })
 })
@@ -39,13 +40,14 @@ routerProducts.get("/formSave", async (req, res) => {
 /* -------------------------------------------------------------------------- */
 routerProducts.get("/formUpdate/:id", async (req, res) => {
   const id = req.params.id
-  // const product = await container.getById(id)
+  //File
+  const product = await container.getById(id)
 
   //MongoDB
   // const product = await containerMongoDB.getById(id)
 
   //Firebase
-  const product = await containerFirebase.getById(id)
+  // const product = await containerFirebase.getById(id)
 
   res.render("./products/updateProduct", { product })
 })
@@ -55,13 +57,14 @@ routerProducts.get("/formUpdate/:id", async (req, res) => {
 /* -------------------------------------------------------------------------- */
 routerProducts.post("/", async (req, res) => {
   const product = { ...req.body, timestamp: Date.now() }
-  // container.save(product)
+  //File
+  container.save(product)
 
   //MongoDB
   // containerMongoDB.save(product)
 
   //Firebase
-  containerFirebase.save(product)
+  // containerFirebase.save(product)
 
   res.redirect("/api/products")
 })
@@ -70,7 +73,10 @@ routerProducts.post("/", async (req, res) => {
 /*                             Modificar producto                             */
 /* -------------------------------------------------------------------------- */
 routerProducts.put("/:id", async (req, res) => {
-  // container.update(product)
+  //File
+  const id = req.params.id
+  const product = { ...req.body, id }
+  container.update(product)
 
   //MongoDB
   // const _id = req.params.id
@@ -78,9 +84,9 @@ routerProducts.put("/:id", async (req, res) => {
   // containerMongoDB.update(product)
 
   //Firebase
-  const id = req.params.id
-  const product = { ...req.body, id }
-  containerFirebase.update(product)
+  // const id = req.params.id
+  // const product = { ...req.body, id }
+  // containerFirebase.update(product)
 
   res.json({})
 })
@@ -89,15 +95,17 @@ routerProducts.put("/:id", async (req, res) => {
 /*                               Borrar producto                              */
 /* -------------------------------------------------------------------------- */
 routerProducts.delete("/:id", (req, res) => {
-  // container.deleteById(id)
+  //File
+  const id = req.params.id
+  container.deleteById(id)
 
   //MongoDB
   // const _id = req.params.id
   // containerMongoDB.deleteById(_id)
 
   //Firebase
-  const id = req.params.id
-  containerFirebase.deleteById(id)
+  // const id = req.params.id
+  // containerFirebase.deleteById(id)
 })
 
 module.exports = routerProducts
