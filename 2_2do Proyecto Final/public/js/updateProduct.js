@@ -8,6 +8,8 @@ const btnUpdate = e => {
   const price = document.querySelector("#price").value
   const stock = document.querySelector("#stock").value
 
+  console.log("+++++ " + id)
+
   const product = {
     timestamp,
     name,
