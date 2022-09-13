@@ -13,12 +13,16 @@ const mongoDB = async URL => {
   }
 }
 
-const firebase = async serviceAccount => {
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-  })
-
-  console.log("Connected database Firebase")
+const firebase = async () => {
+  try {
+    const serviceAccount = require("./ecommerce-c8bee-firebase-adminsdk-kyc5y-19969d793c.json")
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount),
+    })
+    console.log("Connected to Firebase")
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 module.exports = { mongoDB, firebase }

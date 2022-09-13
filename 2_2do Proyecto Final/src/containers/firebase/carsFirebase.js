@@ -1,8 +1,10 @@
 const admin = require("firebase-admin")
-class ContainerProducts {
+
+class ContainerCars {
   constructor(nameCollection) {
     this.db = admin.firestore()
     this.query = this.db.collection(nameCollection)
+    this.nameCollection = nameCollection
   }
   /* -------------------------------------------------------------------------- */
   /*                                    save                                    */
@@ -51,18 +53,13 @@ class ContainerProducts {
       const querySnapshot = await this.query.get()
       const docs = querySnapshot.docs
 
-      const products = docs.map(doc => ({
+      const car = docs.map(doc => ({
         id: doc.id,
-        name: doc.data().name,
-        description: doc.data().description,
-        code: doc.data().code,
-        price: doc.data().price,
-        stock: doc.data().stock,
+        products: doc.data().products,
         timestamp: doc.data().timestamp,
-        urlPicture: doc.data().urlPicture,
       }))
 
-      return products
+      return car
     } catch (error) {
       console.log(error)
     }
@@ -83,7 +80,13 @@ class ContainerProducts {
   /* -------------------------------------------------------------------------- */
   /*                                  deleteAll                                 */
   /* -------------------------------------------------------------------------- */
-  async deleteAll() {}
+  async deleteAll() {
+    try {
+      await this.db.collection("cities").doc("DC").delete()
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 
-module.exports = ContainerProducts
+module.exports = ContainerCars

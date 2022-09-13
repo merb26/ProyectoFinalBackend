@@ -1,7 +1,11 @@
 const express = require("express")
 const bodyParser = require("body-parser")
+const { firebase } = require("./src/utils/connections")
 
 const serverExpress = express()
+
+//Conecta a Firebase
+firebase()
 
 const routerProducts = require("./src/routes/routerProducts")
 const routerCar = require("./src/routes/routerCar")
