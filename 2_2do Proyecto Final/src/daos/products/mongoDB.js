@@ -6,8 +6,6 @@ class ProductsDaoMongo extends mongoDB {
       "mongodb+srv://merb:XcKp9WciORH5TlCS@cluster0.4ryuos8.mongodb.net/ecommerce"
     )
   }
-
-  async desconnected() {}
 }
 
 module.exports = { ProductsDaoMongo }
