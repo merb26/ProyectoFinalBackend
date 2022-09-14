@@ -1,12 +1,4 @@
 const { Router } = require("express")
-const controllerProductsMongodb = require("../controllers/products/mongodbProducts")
-const Container = require("../containers/file")
-const { ProductsDaoMongo } = require("../daos/products/mongoDB")
-const { ProductsDaoFirebase } = require("../daos/products/firebase")
-
-const container = new Container()
-const containerMongoDB = new ProductsDaoMongo()
-const containerFirebase = new ProductsDaoFirebase()
 
 const { controllerProducts } = require("../utils/chooseDatabase")
 
