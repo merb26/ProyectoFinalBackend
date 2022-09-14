@@ -1,11 +1,16 @@
 const express = require("express")
 const bodyParser = require("body-parser")
-const { firebase } = require("./src/utils/connections")
+const { firebase, mongoDB } = require("./src/utils/connections")
 
 const serverExpress = express()
 
 //Conecta a Firebase
 firebase()
+
+//Conecta a MongoDB
+mongoDB(
+  "mongodb+srv://merb:XcKp9WciORH5TlCS@cluster0.4ryuos8.mongodb.net/ecommerce"
+)
 
 const routerProducts = require("./src/routes/routerProducts")
 const routerCar = require("./src/routes/routerCar")

@@ -28,5 +28,15 @@
     "stock": "15",
     "timestamp": "2022-08-21T21:00:41.315Z",
     "id": 3
+  },
+  {
+    "name": "Manolo",
+    "description": "aventura",
+    "code": "123456",
+    "urlPicture": "7777",
+    "price": "5000",
+    "stock": "10",
+    "timestamp": 1663125251511,
+    "id": 4
   }
 ]

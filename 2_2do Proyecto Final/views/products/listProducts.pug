@@ -17,7 +17,7 @@ html
                     |
                     div(class="card-body")
                         p(class="card-text")=product.description
-                        if isAdministrator
+                        if !isAdministrator
                             form(action=`./products/formUpdate/${product.id}` method="GET")
                                 input(class="m-2 btn btn-dark form-control buttonAdministrator" type="submit" value="Actualizar")
                                 input(class="m-2 btn btn-dark form-control buttonAdministrator" onclick=`return btnRemove(this,${index})` type="button" value="Eliminar")
@@ -30,7 +30,7 @@ html
                 |
                 input(class="m-4 p-2 btn btn-dark form-control button" type="submit" value="Inicio")
             |
-            if isAdministrator
+            if !isAdministrator
                 form(action="./products/formSave" method="GET")
                     |
                     input(class="m-4 p-2 btn btn-dark form-control button" type="submit" value="Agregar producto")

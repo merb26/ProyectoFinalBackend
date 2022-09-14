@@ -2,9 +2,7 @@ const { mongoDB } = require("../../utils/connections")
 const products = require("../../models/products")
 
 class ContainerProducts {
-  constructor(URL) {
-    mongoDB(URL)
-  }
+  constructor() {}
   /* -------------------------------------------------------------------------- */
   /*                                    save                                    */
   /* -------------------------------------------------------------------------- */

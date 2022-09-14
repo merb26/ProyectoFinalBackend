@@ -1,4 +1,5 @@
 const { Router } = require("express")
+const controllerProductsMongodb = require("../controllers/products/mongodbProducts")
 const Container = require("../containers/file")
 const { ProductsDaoMongo } = require("../daos/products/mongoDB")
 const { ProductsDaoFirebase } = require("../daos/products/firebase")
@@ -6,6 +7,8 @@ const { ProductsDaoFirebase } = require("../daos/products/firebase")
 const container = new Container()
 const containerMongoDB = new ProductsDaoMongo()
 const containerFirebase = new ProductsDaoFirebase()
+
+const { controllerProducts } = require("../utils/chooseDatabase")
 
 // http://localhost:8080/api/products
 const routerProducts = Router()
@@ -15,18 +18,7 @@ let isAdministrator = true
 /* -------------------------------------------------------------------------- */
 /*                         Listar todos los productos                         */
 /* -------------------------------------------------------------------------- */
-routerProducts.get("/", async (req, res) => {
-  //File
-  const products = await container.getAll()
-
-  //MongoDB
-  // const products = await containerMongoDB.getAll()
-
-  //Firebase
-  // const products = await containerFirebase.getAll()
-
-  res.render("./products/listProducts", { products, isAdministrator })
-})
+routerProducts.get("/", controllerProducts.getProducts)
 
 /* -------------------------------------------------------------------------- */
 /*                     Formulario para guardar o ingresar                     */
@@ -38,74 +30,21 @@ routerProducts.get("/formSave", async (req, res) => {
 /* -------------------------------------------------------------------------- */
 /*                   Formulario para actualizar o modificar                   */
 /* -------------------------------------------------------------------------- */
-routerProducts.get("/formUpdate/:id", async (req, res) => {
-  const id = req.params.id
-  //File
-  const product = await container.getById(id)
-
-  //MongoDB
-  // const product = await containerMongoDB.getById(id)
-
-  //Firebase
-  // const product = await containerFirebase.getById(id)
-
-  res.render("./products/updateProduct", { product })
-})
+routerProducts.get("/formUpdate/:id", controllerProducts.getProduct)
 
 /* -------------------------------------------------------------------------- */
 /*                              Guardar producto                              */
 /* -------------------------------------------------------------------------- */
-routerProducts.post("/", async (req, res) => {
-  const product = { ...req.body, timestamp: Date.now() }
-  //File
-  container.save(product)
-
-  //MongoDB
-  // containerMongoDB.save(product)
-
-  //Firebase
-  // containerFirebase.save(product)
-
-  res.redirect("/api/products")
-})
+routerProducts.post("/", controllerProducts.saveProduct)
 
 /* -------------------------------------------------------------------------- */
 /*                             Modificar producto                             */
 /* -------------------------------------------------------------------------- */
-routerProducts.put("/:id", async (req, res) => {
-  //File
-  const id = req.params.id
-  const product = { ...req.body, id }
-  container.update(product)
-
-  //MongoDB
-  // const _id = req.params.id
-  // const product = { ...req.body, _id }
-  // containerMongoDB.update(product)
-
-  //Firebase
-  // const id = req.params.id
-  // const product = { ...req.body, id }
-  // containerFirebase.update(product)
-
-  res.json({})
-})
+routerProducts.put("/:id", controllerProducts.updateProduct)
 
 /* -------------------------------------------------------------------------- */
 /*                               Borrar producto                              */
 /* -------------------------------------------------------------------------- */
-routerProducts.delete("/:id", (req, res) => {
-  //File
-  const id = req.params.id
-  container.deleteById(id)
-
-  //MongoDB
-  // const _id = req.params.id
-  // containerMongoDB.deleteById(_id)
-
-  //Firebase
-  // const id = req.params.id
-  // containerFirebase.deleteById(id)
-})
+routerProducts.delete("/:id", controllerProducts.removeProduct)
 
 module.exports = routerProducts

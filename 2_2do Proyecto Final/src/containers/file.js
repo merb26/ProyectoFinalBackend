@@ -123,7 +123,6 @@ class Container {
         }
     } catch (error) {
       console.log(error)
-      console.log("No hay productos, debe agregar un producto")
     }
   }
 
@@ -136,7 +135,6 @@ class Container {
       return (contents = JSON.parse(contents))
     } catch (error) {
       console.log(error)
-      console.log("No hay productos, debe agregar un producto")
     }
   }
 
@@ -149,7 +147,6 @@ class Container {
       return this.writeDeleteById(number, JSON.parse(contents))
     } catch (error) {
       console.log(error)
-      console.log("No hay productos almacenados")
       return { message: "No hay productos almacenados" }
     }
   }
@@ -179,11 +176,9 @@ class Container {
   /* -------------------------------------------------------------------------- */
   async deleteAll() {
     try {
-      await fs.promises.unlink(this.nameFile)
-      console.log("Eliminó todos los productos con éxito")
+      await fs.promises.writeFile(this.nameFile, JSON.stringify([], null, 2))
     } catch (error) {
       console.log(error)
-      console.log("No hay productos")
     }
   }
 

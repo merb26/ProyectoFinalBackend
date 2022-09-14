@@ -69,6 +69,7 @@ class ContainerCars {
   /*                                 deleteById                                 */
   /* -------------------------------------------------------------------------- */
   async deleteById(id) {
+    console.log(id)
     try {
       const doc = this.query.doc(`${id}`)
       await doc.delete()
