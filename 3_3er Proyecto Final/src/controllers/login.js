@@ -26,13 +26,13 @@ export const loginMongodb = {
     res.render("login")
   },
 
-  passportLogin: async (email, password, done) => {
+  passportLogin: async (username, password, done) => {
     const users = await container.getAll()
 
-    const user = users.find(user => user.email === email)
+    const user = users.find(user => user.email === username)
 
     if (!user) {
-      console.log(`No existe el email ${email}`)
+      console.log(`No existe el email ${username}`)
       return done(null, false, { message: "User not found" })
     }
 
@@ -52,7 +52,6 @@ export const loginMongodb = {
     let user = users.find(user => user.email === username)
 
     if (user) {
-      console.log(`El usuario ${username} ya existe`)
       return done(null, false, { message: "User already exists" })
     }
 

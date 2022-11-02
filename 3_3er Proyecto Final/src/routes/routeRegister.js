@@ -1,6 +1,19 @@
 import { Router } from "express"
+import passport from "passport"
 export const routeRegister = Router()
 
-routeRegister.get("/", (req, res) => {
-  res.json({ message: "register ok" })
+routeRegister
+  .get("/", (req, res) => {
+    res.render("./register/register")
+  })
+  .post(
+    "/",
+    passport.authenticate("signup", {
+      successRedirect: "register/success",
+      failureRedirect: "register/failer",
+    })
+  )
+
+routeRegister.get("/failer", (req, res) => {
+  res.render("./register/errorRegister")
 })

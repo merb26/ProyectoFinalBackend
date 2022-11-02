@@ -1,0 +1,37 @@
+@import url(../variables.css);
+
+body {
+  color: var(--color-sangria);
+  background-color: #f1f1f1;
+}
+
+.titulo {
+  background-color: var(--color-fondo);
+}
+
+.frameForm {
+  display: flex;
+  justify-content: center;
+}
+.form {
+  width: 400px;
+}
+
+.form-control {
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.boton {
+  color: var(--color-sangria);
+  border-color: var(--color-sangria);
+}
+
+.boton:hover {
+  background-color: var(--color-fondo);
+  border-color: var(--color-sangria);
+}
+
+.boton:focus {
+  box-shadow: none !important;
+}

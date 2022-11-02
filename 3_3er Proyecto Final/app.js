@@ -11,6 +11,7 @@ import { routeRegister } from "./src/routes/routeRegister.js"
 import { runServer } from "./server.js"
 
 app.use(express.static("public"))
+app.use(express.urlencoded({ extended: true }))
 
 /* -------------------------------------------------------------------------- */
 /*                            Configuration MongoDB                           */
