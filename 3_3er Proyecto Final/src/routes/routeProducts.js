@@ -1,7 +1,8 @@
 import { Router } from "express"
+import { loginMongodb } from "../controllers/login.js"
 
 export const routeProducts = Router()
 
-routeProducts.get("/", (req, res) => {
+routeProducts.get("/", loginMongodb.authentic, (req, res) => {
   res.json({ message: "inicio de productos" })
 })

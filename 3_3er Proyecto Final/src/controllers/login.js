@@ -13,6 +13,14 @@ export const loginMongodb = {
     res.json("{user: ok}")
   },
 
+  authentic: (req, res, next) => {
+    if (req.isAuthenticated()) {
+      next()
+    } else {
+      res.redirect("/")
+    }
+  },
+
   saveRegister: (req, res) => {
     const { email, password } = req.body
 
