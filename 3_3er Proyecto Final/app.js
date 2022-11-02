@@ -8,6 +8,7 @@ dotenv.config()
 
 import { routeLogin } from "./src/routes/routeLogin.js"
 import { routeRegister } from "./src/routes/routeRegister.js"
+import { routeProducts } from "./src/routes/routeProducts.js"
 import { runServer } from "./server.js"
 
 app.use(express.static("public"))
@@ -67,5 +68,6 @@ app.set("view engine", "pug")
 
 app.use("/", routeLogin)
 app.use("/register", routeRegister)
+app.use("/home", routeProducts)
 
 runServer(app)
