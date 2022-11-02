@@ -4,5 +4,5 @@ import { loginMongodb } from "../controllers/login.js"
 export const routeProducts = Router()
 
 routeProducts.get("/", loginMongodb.authentic, (req, res) => {
-  res.json({ message: "inicio de productos" })
+  res.render("./home")
 })
