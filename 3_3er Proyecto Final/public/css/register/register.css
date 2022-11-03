@@ -13,8 +13,18 @@ body {
   display: flex;
   justify-content: center;
 }
+
 .form {
   width: 400px;
+}
+
+#phone {
+  margin-top: 1rem !important;
+  /* width: 400px; */
+}
+
+.iti__selected-flag {
+  padding-top: 1rem;
 }
 
 .form-control {

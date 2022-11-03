@@ -2,9 +2,17 @@ import { Router } from "express"
 import passport from "passport"
 export const routeRegister = Router()
 
+import { e } from "../apis/prefijosInternacionales.js"
+
 routeRegister
   .get("/", (req, res) => {
-    res.render("./register/register")
+    const prefijos = []
+
+    e.forEach(pais => {
+      prefijos.push({ pais: pais[0], prefijo: pais[2] })
+    })
+
+    res.render("./register/register", { prefijos })
   })
   .post(
     "/",

@@ -5,13 +5,13 @@ import { Container } from "../containers/users.js"
 const container = new Container()
 
 export const loginMongodb = {
-  startSesion: (req, res) => {
-    const { name } = req.body
+  // startSesion: (req, res) => {
+  //   const { name } = req.body
 
-    req.session.email = name.toLowerCase()
+  //   req.session.email = name.toLowerCase()
 
-    res.json("{user: ok}")
-  },
+  //   res.json("{user: ok}")
+  // },
 
   authentic: (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -21,18 +21,21 @@ export const loginMongodb = {
     }
   },
 
-  saveRegister: (req, res) => {
-    const { email, password } = req.body
+  // saveRegister: (req, res) => {
+  //   const { email, password, name, address, phone, avatar } = req.body
 
-    const user = {
-      email,
-      password: bcrypt.hashSync(password, bcrypt.genSaltSync(10), null),
-    }
+  //   const user = {
+  //     email,
+  //     password: bcrypt.hashSync(password, bcrypt.genSaltSync(10), null),
+  //     name,
+  //     address,
+  //     phone,
+  //     avatar,
+  //   }
+  //   container.save(user)
 
-    container.save(user)
-
-    res.render("login")
-  },
+  //   res.render("login")
+  // },
 
   passportLogin: async (username, password, done) => {
     const users = await container.getAll()
@@ -57,6 +60,10 @@ export const loginMongodb = {
   passportSignup: async (req, username, password, done) => {
     const users = await container.getAll()
 
+    const { name, address, phone, avatar, prefijo } = req.body
+
+    console.log(prefijo)
+
     let user = users.find(user => user.email === username)
 
     if (user) {
@@ -66,7 +73,13 @@ export const loginMongodb = {
     let newUser = {
       password: bcrypt.hashSync(password, bcrypt.genSaltSync(10), null),
       email: username,
+      name,
+      address,
+      phone: "+" + prefijo + " " + phone,
+      urlPhoto: avatar,
     }
+
+    console.log(newUser)
 
     const userMongoDB = await container.save(newUser)
 
