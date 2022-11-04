@@ -1,6 +1,6 @@
 const {
   controllerProductsMongodb,
-} = require("../controllers/products/mongodbProducts")
+} = require("../../../3_3er Proyecto Final/src/controllers/mongodbProducts")
 const {
   controllerProductsFile,
 } = require("../controllers/products/fileProducts")

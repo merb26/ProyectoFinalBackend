@@ -10,7 +10,7 @@ routeLogin
   .post(
     "/",
     passport.authenticate("login", {
-      successRedirect: "/home",
+      successRedirect: "/products",
       failureRedirect: "/errorSesion",
     })
   )

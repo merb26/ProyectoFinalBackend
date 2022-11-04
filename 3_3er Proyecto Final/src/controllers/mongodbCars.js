@@ -1,12 +1,15 @@
-const { CarsDaoMongo } = require("../../daos/cars/mongoDB")
-const { ProductsDaoMongo } = require("../../daos/products/mongoDB")
+import { ContainerCars } from "../containers/carsMongoDB.js"
+import { ContainerProducts } from "../containers/productsMongoDB.js"
 
-const containerCars = new CarsDaoMongo()
-const containerProducts = new ProductsDaoMongo()
+const containerCars = new ContainerCars()
+const containerProducts = new ContainerProducts()
 
-const controllerCarsMongodb = {
+let products
+
+export const controllerCars = {
   getCars: async (req, res) => {
     const car = await containerCars.getAll()
+
     if (car.length === 0) {
       products = false
     } else {
@@ -43,7 +46,7 @@ const controllerCarsMongodb = {
       }
     }
 
-    res.redirect("/api/car/1/products")
+    res.redirect("/car/1/products")
   },
   removeProductoOnCar: async (req, res) => {
     const idProduct = req.params.id_prod
@@ -65,5 +68,3 @@ const controllerCarsMongodb = {
     containerCars.delete()
   },
 }
-
-module.exports = { controllerCarsMongodb }

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+import mongoose from "mongoose"
 
 const carsCollection = "cars"
 
@@ -7,4 +7,4 @@ const carSchema = new mongoose.Schema({
   products: { type: Array },
 })
 
-module.exports = mongoose.model(carsCollection, carSchema)
+export default mongoose.model(carsCollection, carSchema)

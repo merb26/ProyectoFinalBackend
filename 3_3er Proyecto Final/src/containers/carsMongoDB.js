@@ -1,7 +1,6 @@
-const { mongoDB } = require("../../utils/connections")
-const cars = require("../../models/cars")
+import cars from "../models/cars.js"
 
-class ContainerCars {
+export class ContainerCars {
   constructor() {}
   /* -------------------------------------------------------------------------- */
   /*                                    save                                    */
@@ -48,5 +47,3 @@ class ContainerCars {
     await cars.deleteMany({})
   }
 }
-
-module.exports = ContainerCars

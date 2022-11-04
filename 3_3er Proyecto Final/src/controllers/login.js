@@ -1,18 +1,11 @@
 import bcrypt from "bcrypt"
+import { v4 } from "uuid"
 
 import { Container } from "../containers/users.js"
 
 const container = new Container()
 
 export const loginMongodb = {
-  // startSesion: (req, res) => {
-  //   const { name } = req.body
-
-  //   req.session.email = name.toLowerCase()
-
-  //   res.json("{user: ok}")
-  // },
-
   authentic: (req, res, next) => {
     if (req.isAuthenticated()) {
       next()
@@ -20,22 +13,6 @@ export const loginMongodb = {
       res.redirect("/")
     }
   },
-
-  // saveRegister: (req, res) => {
-  //   const { email, password, name, address, phone, avatar } = req.body
-
-  //   const user = {
-  //     email,
-  //     password: bcrypt.hashSync(password, bcrypt.genSaltSync(10), null),
-  //     name,
-  //     address,
-  //     phone,
-  //     avatar,
-  //   }
-  //   container.save(user)
-
-  //   res.render("login")
-  // },
 
   passportLogin: async (username, password, done) => {
     const users = await container.getAll()
@@ -60,14 +37,22 @@ export const loginMongodb = {
   passportSignup: async (req, username, password, done) => {
     const users = await container.getAll()
 
-    const { name, address, phone, avatar, prefijo } = req.body
-
-    console.log(prefijo)
+    const { name, address, phone, prefijo } = req.body
 
     let user = users.find(user => user.email === username)
 
-    if (user) {
-      return done(null, false, { message: "User already exists" })
+    if (user) return done(null, false, { message: "User already exists" })
+
+    const uuid = v4()
+    let image
+    if (!req.files) {
+      console.log("No tiene archivos")
+    } else {
+      // Sube la imagen al servidor
+      image = req.files.file
+      image.mv(`./src/img/${uuid}-${image.name}`, err => {
+        if (err) return done(null, false, { message: "Error upload file" })
+      })
     }
 
     let newUser = {
@@ -75,11 +60,9 @@ export const loginMongodb = {
       email: username,
       name,
       address,
-      phone: "+" + prefijo + " " + phone,
-      urlPhoto: avatar,
+      phone: `+${prefijo} ${phone}`,
+      urlPhoto: `./src/img/${uuid}-${image.name}`,
     }
-
-    console.log(newUser)
 
     const userMongoDB = await container.save(newUser)
 

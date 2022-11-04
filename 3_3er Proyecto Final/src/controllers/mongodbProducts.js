@@ -1,8 +1,8 @@
-const { ProductsDaoMongo } = require("../../daos/products/mongoDB")
+import { ContainerProducts } from "../containers/productsMongoDB.js"
 
-const container = new ProductsDaoMongo()
+const container = new ContainerProducts()
 
-const controllerProductsMongodb = {
+export const controllerProducts = {
   getProducts: async (req, res) => {
     const products = await container.getAll()
 
@@ -20,7 +20,7 @@ const controllerProductsMongodb = {
 
     container.save(product)
 
-    res.redirect("/api/products")
+    res.redirect("/products")
   },
   updateProduct: async (req, res) => {
     const _id = req.params.id
@@ -36,5 +36,3 @@ const controllerProductsMongodb = {
     container.deleteById(_id)
   },
 }
-
-module.exports = { controllerProductsMongodb }

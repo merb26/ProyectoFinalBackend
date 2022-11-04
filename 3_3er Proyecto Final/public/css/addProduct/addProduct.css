@@ -1,4 +1,4 @@
-.boxBody {
+body {
   background-color: rgb(196, 153, 237);
   height: 100%;
   display: flex;
@@ -6,15 +6,12 @@
   align-items: center;
   justify-content: center;
 }
-.boxBody h1 {
+body h1 {
   font-family: "Courier New", Courier, monospace;
   font-weight: bold;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   font-size: 50px;
 }
-.boxBody form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 400px;
-} /*# sourceMappingURL=index.css.map */
+body .form {
+  width: 300px;
+}/*# sourceMappingURL=addProduct.css.map */

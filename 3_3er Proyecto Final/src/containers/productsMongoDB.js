@@ -1,7 +1,6 @@
-const { mongoDB } = require("../../utils/connections")
-const products = require("../../models/products")
+import products from "../models/products.js"
 
-class ContainerProducts {
+export class ContainerProducts {
   constructor() {}
   /* -------------------------------------------------------------------------- */
   /*                                    save                                    */
@@ -52,5 +51,3 @@ class ContainerProducts {
     await products.deleteOne({ _id })
   }
 }
-
-module.exports = ContainerProducts
