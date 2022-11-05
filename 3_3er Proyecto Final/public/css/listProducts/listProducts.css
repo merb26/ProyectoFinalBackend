@@ -5,8 +5,23 @@ body {
   color: var(--color-sangria);
 }
 
-.titulo {
+.menu {
   background-color: var(--color-fondo);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.information {
+  display: flex;
+}
+
+.information__avatar {
+  border-radius: 10px;
+}
+
+.information__usuario {
+  margin-left: 1rem;
 }
 
 body h1 {

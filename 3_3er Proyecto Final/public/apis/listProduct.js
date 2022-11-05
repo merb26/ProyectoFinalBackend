@@ -4,7 +4,7 @@ const btnRemove = (e, index) => {
     method: "DELETE",
   }
 
-  fetch(`/api/products/${id.value}`, fetchDELETE).then(
+  fetch(`/products/${id.value}`, fetchDELETE).then(
     setTimeout(() => {
       location.reload()
     }, 500)

@@ -4,6 +4,9 @@ import { v4 } from "uuid"
 import { Container } from "../containers/users.js"
 
 const container = new Container()
+export const userLogin = {
+  user: {},
+}
 
 export const loginMongodb = {
   authentic: (req, res, next) => {
@@ -31,6 +34,7 @@ export const loginMongodb = {
       return done(null, false, { message: "Password incorrect" })
     }
 
+    userLogin.user = user
     done(null, user)
   },
 
@@ -50,7 +54,7 @@ export const loginMongodb = {
     } else {
       // Sube la imagen al servidor
       image = req.files.file
-      image.mv(`./src/img/${uuid}-${image.name}`, err => {
+      image.mv(`./public/img/${uuid}-${image.name}`, err => {
         if (err) return done(null, false, { message: "Error upload file" })
       })
     }
@@ -61,8 +65,10 @@ export const loginMongodb = {
       name,
       address,
       phone: `+${prefijo} ${phone}`,
-      urlPhoto: `./src/img/${uuid}-${image.name}`,
+      urlPhoto: `./img/${uuid}-${image.name}`,
     }
+
+    userLogin.user = newUser
 
     const userMongoDB = await container.save(newUser)
 

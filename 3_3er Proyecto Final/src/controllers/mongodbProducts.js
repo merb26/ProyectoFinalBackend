@@ -1,4 +1,5 @@
 import { ContainerProducts } from "../containers/productsMongoDB.js"
+import { userLogin } from "../controllers/login.js"
 
 const container = new ContainerProducts()
 
@@ -6,7 +7,9 @@ export const controllerProducts = {
   getProducts: async (req, res) => {
     const products = await container.getAll()
 
-    res.render("./products/listProducts", { products })
+    let userHome = userLogin.user
+
+    res.render("./products/listProducts", { products, userHome })
   },
   getProduct: async (req, res) => {
     const id = req.params.id

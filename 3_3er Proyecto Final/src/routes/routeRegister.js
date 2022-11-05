@@ -17,7 +17,7 @@ routeRegister
   .post(
     "/",
     passport.authenticate("signup", {
-      successRedirect: "/home",
+      successRedirect: "/products",
       failureRedirect: "register/failer",
     })
   )
