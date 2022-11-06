@@ -11,6 +11,7 @@ import { routeLogin } from "./src/routes/routeLogin.js"
 import { routeRegister } from "./src/routes/routeRegister.js"
 import { routeProducts } from "./src/routes/routeProducts.js"
 import { routerCar } from "./src/routes/routerCar.js"
+import { routeOrder } from "./src/routes/routeOrder.js"
 import { runServer } from "./server.js"
 
 app.use(express.static("public"))
@@ -74,5 +75,6 @@ app.use("/", routeLogin)
 app.use("/register", routeRegister)
 app.use("/car", routerCar)
 app.use("/products", routeProducts)
+app.use("/order", routeOrder)
 
 runServer(app)

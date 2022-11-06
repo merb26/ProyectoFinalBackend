@@ -7,6 +7,9 @@ const containerProducts = new ContainerProducts()
 let products
 
 export const controllerCars = {
+  getOrder: async (req, res) => {
+    res.json({ message: "OK" })
+  },
   getCars: async (req, res) => {
     const car = await containerCars.getAll()
 

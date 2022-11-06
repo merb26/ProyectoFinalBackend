@@ -5,7 +5,7 @@ html
         link(rel="stylesheet" href="../css/listProducts/listProducts.css")
     body
         div(class="p-4 menu")
-            div Coder Games
+            div Games Virtual
             div(class="information")
                 div
                     img(class="information__avatar" src=`${userHome.urlPhoto}` alt="Foto del usuario" width="100px" height="100px")
@@ -32,7 +32,7 @@ html
                         h4(class="card-title")=product.name
                         h4(class="card-title")="$" + product.price
                         input(type="text" id=`id${index}` value=product.id hidden)
-                    img(src=`${product.urlPicture}` alt="..." class="card-img-top")
+                    img(src=`${product.urlPicture}` alt="Producto" class="card-img-top")
                     |
                     div(class="card-body")
                         p(class="card-text")=product.description
