@@ -1,0 +1,44 @@
+- var n = 1;
+
+html
+    head 
+        title Coder Merb
+        link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous")
+        link(rel="stylesheet" href="../css/listProducts/listProducts.css")
+        link(rel="stylesheet" href="../css/product/product.css")
+    body
+        div(class="p-4 menu")
+            div Coder Games
+            div(class="information")
+                div
+                    img(class="information__avatar" src=`../${userHome.urlPhoto}` alt="Foto del usuario" width="100px" height="100px")
+                div(class="information__usuario")
+                    div=`Email: ${userHome.email}`
+                    div=`Nombre: ${userHome.name}`
+                    div=`Dirección: ${userHome.address}`
+                    div=`Teléfono: ${userHome.phone}`
+            div
+                form(method="GET" action="../car/1/products")
+                    button(onclick="submit")
+                        span 5
+                        img(src="../img/carrito.png")
+            div
+                form(method="GET" action="./logout")
+                    button(onclick="submit") Cerrar sesión
+        |
+        div(class="product")
+            div(class="product__image") 
+                img(src=`${product.urlPicture}` width="400px")
+            div(class="product__description")
+                p=`Nombre: ${product.name}`
+                p=`Descripcion: ${product.description}`
+                p=`Precio: $${product.price}`
+                p=`${product.stock} disponibles`
+                p cantidad:
+                select(name="stock" )
+                    while n <= `${product.stock}`
+                        option(value=n)= n++
+                form(method="POST" action=`../car/${product.id}/products`)
+                    button(onclick="submit") Agregar al carrito 
+                a(href=("javascript: history.go(-1)"))
+                    button Seguir comprando

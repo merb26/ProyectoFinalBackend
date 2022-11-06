@@ -11,12 +11,20 @@ export const controllerProducts = {
 
     res.render("./products/listProducts", { products, userHome })
   },
-  getProduct: async (req, res) => {
+  getProductUpdate: async (req, res) => {
     const id = req.params.id
 
     const product = await container.getById(id)
 
     res.render("./products/updateProduct", { product })
+  },
+  getProduct: async (req, res) => {
+    const id = req.params.id
+
+    let userHome = userLogin.user
+    const product = await container.getById(id)
+
+    res.render("./products/product", { product, userHome })
   },
   saveProduct: async (req, res) => {
     const product = { ...req.body, timestamp: Date.now() }

@@ -1,0 +1,15 @@
+.product {
+  display: flex;
+  justify-content: center;
+  margin: 3rem 0;
+}
+
+.product__image {
+  margin-right: 2rem;
+}
+
+.product__description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

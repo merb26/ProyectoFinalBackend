@@ -23,7 +23,7 @@ routeProducts.get("/formSave", loginMongodb.authentic, async (req, res) => {
 routeProducts.get(
   "/formUpdate/:id",
   loginMongodb.authentic,
-  controllerProducts.getProduct
+  controllerProducts.getProductUpdate
 )
 
 /* -------------------------------------------------------------------------- */
@@ -48,3 +48,8 @@ routeProducts.delete(
   loginMongodb.authentic,
   controllerProducts.removeProduct
 )
+
+/* -------------------------------------------------------------------------- */
+/*                           Muestra producto por id                          */
+/* -------------------------------------------------------------------------- */
+routeProducts.post("/:id", controllerProducts.getProduct)

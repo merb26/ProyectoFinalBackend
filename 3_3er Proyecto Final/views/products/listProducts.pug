@@ -41,8 +41,9 @@ html
                                 input(class="m-2 btn btn-dark form-control buttonAdministrator" type="submit" value="Actualizar")
                                 input(class="m-2 btn btn-dark form-control buttonAdministrator" onclick=`return btnRemove(this,${index})` type="button" value="Eliminar")
                         |
-                        form(action=`./car/${product.id}/products` method="POST")
-                            input(class="m-2 w-75 btn btn-dark form-control" type="submit" value="Agregar al carrito")              
+                        //- form(action=`./car/${product.id}/products` method="POST")
+                        form(action=`./products/${product.id}` method="POST")
+                            input(class="m-2 w-75 btn btn-dark form-control" type="submit" value="Más detalle")              
         |
         div(class="buttons")
             if !isAdministrator
