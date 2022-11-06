@@ -22,7 +22,7 @@ html
 
         |
         div(class="buttons")
-            form(action="../../../order" method="get")
+            form(action=`../../../order/${carSelect._id}` method="get")
                 input(class="m-4 p-2 btn btn-dark form-control button" type="submit" value="Hacer pedido")
                 |
                 input(class="m-4 p-2 btn btn-dark form-control button" onclick=`return btnRemoveCar()` type="button" value="Limpiar carrito")

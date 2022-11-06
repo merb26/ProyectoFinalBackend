@@ -23,7 +23,9 @@ export const controllerCars = {
       })
       products = car[0].products
     }
-    res.render("./car/productsSelects", { products })
+
+    const carSelect = car[0]
+    res.render("./car/productsSelects", { products, carSelect })
   },
   saveProductOnCar: async (req, res) => {
     const idProduct = req.params.id
