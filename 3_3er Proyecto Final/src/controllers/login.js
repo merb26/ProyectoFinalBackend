@@ -1,7 +1,10 @@
 import bcrypt from "bcrypt"
 import { v4 } from "uuid"
+import yargs from "yargs/yargs"
+const args = yargs(process.argv.slice(2)).argv
 
 import { Container } from "../containers/users.js"
+import { sendMail } from "../apis/sendMail.js"
 
 const container = new Container()
 export const userLogin = {
@@ -69,8 +72,19 @@ export const loginMongodb = {
     }
 
     userLogin.user = newUser
-
     const userMongoDB = await container.save(newUser)
+
+    const email = args.EMAIL || "manuele.ramirez.26@gmail.com"
+    const message = `
+    Nombre: ${newUser.name}
+    <br>
+    Email: ${newUser.email}
+    <br>
+    Dirección: ${newUser.address}
+    <br>
+    Teléfono: ${newUser.phone}
+    `
+    sendMail(email, `Nuevo registro`, message)
 
     return done(null, userMongoDB)
   },
