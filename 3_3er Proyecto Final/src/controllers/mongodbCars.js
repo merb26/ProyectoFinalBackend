@@ -24,14 +24,20 @@ export const controllerCars = {
       products = car[0].products
     }
 
-    const carSelect = car[0]
+    let carSelect = car[0]
+    !carSelect && (carSelect = { _id: "0" })
     res.render("./car/productsSelects", { products, carSelect })
   },
   saveProductOnCar: async (req, res) => {
-    const idProduct = req.params.id
+    const { id: idProduct } = req.params
+    const { amount } = req.body
 
     const car = await containerCars.getAll()
     const product = await containerProducts.getById(idProduct)
+
+    product.stock = undefined
+    product._doc.amount = amount
+
     if (car.length === 0) {
       const car = {
         timestamp: Date.now(),

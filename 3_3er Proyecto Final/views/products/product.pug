@@ -35,10 +35,11 @@ html
                 p=`Precio: $${product.price}`
                 p=`${product.stock} disponibles`
                 p cantidad:
-                select(name="stock" )
+                select(name="stock" id="stock")
                     while n <= `${product.stock}`
                         option(value=n)= n++
-                form(method="POST" action=`../car/${product.id}/products`)
-                    button(onclick="submit") Agregar al carrito 
+                //- form(method="POST" action=`../car/${product.id}/products`)
+                button(onclick=`addProductToCar('${product.id}')`) Agregar al carrito 
                 a(href=("javascript: history.go(-1)"))
                     button Seguir comprando
+        script(src="../../../apis/addProductToCar.js") 

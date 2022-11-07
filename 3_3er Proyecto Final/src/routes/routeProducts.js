@@ -52,4 +52,8 @@ routeProducts.delete(
 /* -------------------------------------------------------------------------- */
 /*                           Muestra producto por id                          */
 /* -------------------------------------------------------------------------- */
-routeProducts.post("/:id", controllerProducts.getProduct)
+routeProducts.post(
+  "/:id",
+  loginMongodb.authentic,
+  controllerProducts.getProduct
+)
