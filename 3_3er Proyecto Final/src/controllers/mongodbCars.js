@@ -1,5 +1,10 @@
+import yargs from "yargs/yargs"
+const args = yargs(process.argv.slice(2)).argv
+
 import { ContainerCars } from "../containers/carsMongoDB.js"
 import { ContainerProducts } from "../containers/productsMongoDB.js"
+import { userLogin } from "../controllers/login.js"
+import { sendMail } from "../apis/sendMail.js"
 
 const containerCars = new ContainerCars()
 const containerProducts = new ContainerProducts()
@@ -8,6 +13,33 @@ let products
 
 export const controllerCars = {
   getOrder: async (req, res) => {
+    const { user } = userLogin
+    const subject = `Nuevo pedido de ${user.name} (${user.email})`
+
+    let message = ""
+    let total = 0
+    products.forEach(product => {
+      const { name, description, code, price, amount, subtotal } = product
+      const prod = `
+      Nombre: ${name} <br>
+      Descripción: ${description} <br>
+      Código: ${code} <br>
+      Precio: $${price} <br>
+      Cantidad: ${amount} <br>
+      Subtotal: $${subtotal} <br><br>
+      `
+
+      total += subtotal
+
+      message += prod
+    })
+    message += `TOTAL: $${total}`
+
+    const email = args.EMAIL || "manuele.ramirez.26@gmail.com"
+    sendMail(email, subject, message)
+
+    containerCars.delete()
+
     res.json({ message: "OK" })
   },
   getCars: async (req, res) => {
@@ -26,7 +58,17 @@ export const controllerCars = {
 
     let carSelect = car[0]
     !carSelect && (carSelect = { _id: "0" })
-    res.render("./car/productsSelects", { products, carSelect })
+
+    let total = 0
+    if (products) {
+      products.forEach(product => {
+        const subtotal = product.price * product.amount
+        product.subtotal = subtotal
+        total += subtotal
+      })
+    }
+
+    res.render("./car/productsSelects", { products, carSelect, total })
   },
   saveProductOnCar: async (req, res) => {
     const { id: idProduct } = req.params

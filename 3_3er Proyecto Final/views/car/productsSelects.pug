@@ -17,15 +17,19 @@ html
                         img(src=`${product.urlPicture}` alt="..." class="card-img-top")
                         |
                         div(class="card-body")
-                            p(class="card-text")=product.description
                             p(class="card-text")=`Cantidad: ${product.amount}`
+                            p(class="card-text")=`Subtotal: $${product.subtotal}`
                             input(class="m-2 btn btn-dark form-control buttonAdministrator" onclick=`return btnRemove(${index})` type="button" value="Eliminar")
+            else
+                h2 No hay productos
 
         |
-        div(class="buttons")
-            form(action=`../../../order/${carSelect._id}` method="get")
-                input(class="m-4 p-2 btn btn-dark form-control button" type="submit" value="Hacer pedido")
-                |
-                input(class="m-4 p-2 btn btn-dark form-control button" onclick=`return btnRemoveCar()` type="button" value="Limpiar carrito")
+        if products
+            h2(class="text-center")=`TOTAL: $${total}`
+            div(class="buttons")
+                form(action=`../../../order/${carSelect._id}` method="get")
+                    input(class="m-4 p-2 btn btn-dark form-control button" type="submit" value="Hacer pedido")
+                    |
+                    input(class="m-4 p-2 btn btn-dark form-control button" onclick=`return btnRemoveCar()` type="button" value="Limpiar carrito")
         |
         script(src="../../../apis/productsSelects.js") 
