@@ -5,6 +5,7 @@ import { ContainerCars } from "../containers/carsMongoDB.js"
 import { ContainerProducts } from "../containers/productsMongoDB.js"
 import { userLogin } from "../controllers/login.js"
 import { sendMail } from "../apis/sendMail.js"
+import { sendWP, sendSMS } from "../apis/twilio.js"
 
 const containerCars = new ContainerCars()
 const containerProducts = new ContainerProducts()
@@ -17,30 +18,58 @@ export const controllerCars = {
     const subject = `Nuevo pedido de ${user.name} (${user.email})`
 
     let message = ""
+    let messageWP = ""
     let total = 0
     products.forEach(product => {
       const { name, description, code, price, amount, subtotal } = product
       const prod = `
+
+
       Nombre: ${name} <br>
       Descripción: ${description} <br>
       Código: ${code} <br>
       Precio: $${price} <br>
       Cantidad: ${amount} <br>
-      Subtotal: $${subtotal} <br><br>
+      Subtotal: $${subtotal} <br> <br>
+
+
+      `
+
+      const prodWP = `
+
+      
+      Nombre: ${name} 
+      Descripción: ${description}
+      Código: ${code}
+      Precio: $${price}
+      Cantidad: ${amount} 
+      Subtotal: $${subtotal} 
+
+
       `
 
       total += subtotal
 
       message += prod
+      messageWP += prodWP
     })
     message += `TOTAL: $${total}`
+    messageWP += `TOTAL: $${total}`
 
     const email = args.EMAIL || "manuele.ramirez.26@gmail.com"
-    sendMail(email, subject, message)
+    // sendMail(email, subject, message)
+
+    messageWP = subject + messageWP
+    const phoneAdmin = args.PHONE
+    // sendWP(messageWP, phoneAdmin)
+
+    const messageSMS = "Tu pedido se ha realizado con éxito, está en proceso."
+    // sendSMS(messageSMS, user.phone)
 
     containerCars.delete()
 
-    res.json({ message: "OK" })
+    const userHome = userLogin.user
+    res.render("./order/order", { userHome })
   },
   getCars: async (req, res) => {
     const car = await containerCars.getAll()
