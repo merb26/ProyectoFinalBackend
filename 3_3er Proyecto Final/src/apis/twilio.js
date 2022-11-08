@@ -1,11 +1,9 @@
-// Download the helper library from https://www.twilio.com/docs/node/install
-// Find your Account SID and Auth Token in Account Info and set the environment variables.
-// See http://twil.io/secure
-const accountSid =
-  process.env.TWILIO_ACCOUNT_SID || "AC2b9580050252a0ab99e1702daf4bbbf8"
-const authToken =
-  process.env.TWILIO_AUTH_TOKEN || "578aa282333ed609ebd9c7d22cf3a0f4"
 import client from "twilio"
+import * as dotenv from "dotenv"
+dotenv.config()
+
+const accountSid = process.env.TWILIO_ACCOUNT_SID
+const authToken = process.env.TWILIO_AUTH_TOKEN
 const clientVar = client(accountSid, authToken)
 
 export const sendSMS = async (message, phone) => {

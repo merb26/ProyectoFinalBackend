@@ -1,9 +1,14 @@
+import yargs from "yargs/yargs"
+const args = yargs(process.argv.slice(2)).argv
 import express from "express"
 import fileUpload from "express-fileupload"
 import session from "express-session"
 const app = express()
 import passport from "passport"
-import mongoose, { connect } from "mongoose"
+import mongoose from "mongoose"
+import cluster from "cluster"
+import numCPUs from "os"
+const cpus = numCPUs.cpus().length
 import * as dotenv from "dotenv"
 dotenv.config()
 
@@ -71,10 +76,24 @@ app.set("view engine", "pug")
 /*                                      /                                     */
 /* -------------------------------------------------------------------------- */
 
-app.use("/", routeLogin)
-app.use("/register", routeRegister)
-app.use("/car", routerCar)
-app.use("/products", routeProducts)
-app.use("/order", routeOrder)
+const modo = args.MODO || ""
 
-runServer(app)
+if (cluster.isPrimary && modo.toLowerCase() == "cluster") {
+  console.log(`Master ${process.pid} is running`)
+
+  for (let index = 0; index < cpus; index++) {
+    cluster.fork()
+  }
+
+  cluster.on("exit", (worker, code, signal) => {
+    console.log(`Worker ${worker.process.pid} died`)
+  })
+} else {
+  app.use("/", routeLogin)
+  app.use("/register", routeRegister)
+  app.use("/car", routerCar)
+  app.use("/products", routeProducts)
+  app.use("/order", routeOrder)
+  runServer(app)
+  console.log(`Worker ${process.pid} started`)
+}

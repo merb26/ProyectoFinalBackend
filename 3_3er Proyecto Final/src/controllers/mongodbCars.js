@@ -57,14 +57,14 @@ export const controllerCars = {
     messageWP += `TOTAL: $${total}`
 
     const email = args.EMAIL || "manuele.ramirez.26@gmail.com"
-    // sendMail(email, subject, message)
+    sendMail(email, subject, message)
 
     messageWP = subject + messageWP
     const phoneAdmin = args.PHONE
-    // sendWP(messageWP, phoneAdmin)
+    sendWP(messageWP, phoneAdmin)
 
     const messageSMS = "Tu pedido se ha realizado con éxito, está en proceso."
-    // sendSMS(messageSMS, user.phone)
+    sendSMS(messageSMS, user.phone)
 
     containerCars.delete()
 
@@ -127,8 +127,6 @@ export const controllerCars = {
         containerCars.update(car[0])
       }
     }
-
-    res.redirect("/car/1/products")
   },
   removeProductoOnCar: async (req, res) => {
     const idProduct = req.params.id_prod
