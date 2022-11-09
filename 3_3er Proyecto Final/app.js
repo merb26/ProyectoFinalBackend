@@ -94,6 +94,8 @@ if (cluster.isPrimary && modo.toLowerCase() == "cluster") {
   app.use("/car", routerCar)
   app.use("/products", routeProducts)
   app.use("/order", routeOrder)
+
   runServer(app)
+
   console.log(`Worker ${process.pid} started`)
 }
