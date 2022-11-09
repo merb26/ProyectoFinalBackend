@@ -7,74 +7,60 @@ import { Container } from "../containers/users.js"
 import { sendMail } from "../apis/sendMail.js"
 
 const container = new Container()
+
 export const userLogin = {
   user: {},
 }
 
 export const loginMongodb = {
   authentic: (req, res, next) => {
-    if (req.isAuthenticated()) {
-      next()
-    } else {
-      res.redirect("/")
-    }
+    req.isAuthenticated() ? next() : res.redirect("/")
   },
 
   passportLogin: async (username, password, done) => {
-    const users = await container.getAll()
+    const usersDB = await container.getAll()
 
-    const user = users.find(user => user.email === username)
+    const user = usersDB.find(userDB => userDB.email === username)
+    if (!user) return done(null, false, { message: "User not exist" })
 
-    if (!user) {
-      console.log(`No existe el email ${username}`)
-      return done(null, false, { message: "User not found" })
-    }
-
-    const isValide = bcrypt.compareSync(password, user.password)
-    if (!isValide) {
-      console.log("Password incorrecto")
-
+    const passIsValide = bcrypt.compareSync(password, user.password)
+    if (!passIsValide)
       return done(null, false, { message: "Password incorrect" })
-    }
 
     userLogin.user = user
+
     done(null, user)
   },
 
   passportSignup: async (req, username, password, done) => {
-    const users = await container.getAll()
+    const usersDB = await container.getAll()
 
     const { name, address, phone, prefijo } = req.body
 
-    let user = users.find(user => user.email === username)
-
+    let user = usersDB.find(userDB => userDB.email === username)
     if (user) return done(null, false, { message: "User already exists" })
 
     const uuid = v4()
-    let image
-    if (!req.files) {
-      console.log("No tiene archivos")
-    } else {
-      // Sube la imagen al servidor
-      image = req.files.file
-      image.mv(`./public/img/${uuid}-${image.name}`, err => {
-        if (err) return done(null, false, { message: "Error upload file" })
-      })
-    }
+    // Sube la imagen al servidor
+    let image = req.files.file
+    image.mv(`./public/img/${uuid}-${image.name}`, err => {
+      if (err) return done(null, false, { message: "Error upload file" })
+    })
 
     let newUser = {
       password: bcrypt.hashSync(password, bcrypt.genSaltSync(10), null),
       email: username,
       name,
       address,
-      phone: `+${prefijo} ${phone}`,
+      phone: `+${prefijo}${phone}`,
       urlPhoto: `./img/${uuid}-${image.name}`,
     }
 
     userLogin.user = newUser
+
     const userMongoDB = await container.save(newUser)
 
-    const email = args.EMAIL || "manuele.ramirez.26@gmail.com"
+    const toEmail = args.EMAIL || "manuele.ramirez.26@gmail.com"
     const message = `
     Nombre: ${newUser.name}
     <br>
@@ -84,14 +70,14 @@ export const loginMongodb = {
     <br>
     Teléfono: ${newUser.phone}
     `
-    sendMail(email, `Nuevo registro`, message)
+    sendMail(toEmail, `Nuevo registro`, message)
 
     return done(null, userMongoDB)
   },
 
   deserialize: async (id, done) => {
-    const users = await container.getAll()
-    let user = users.find(user => user.id === id)
+    const usersDB = await container.getAll()
+    let user = usersDB.find(userDB => userDB.id === id)
 
     done(null, user)
   },

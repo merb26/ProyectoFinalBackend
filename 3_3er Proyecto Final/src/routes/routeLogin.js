@@ -17,9 +17,7 @@ routeLogin.post(
 
 routeLogin.get("/logout", async (req, res, next) => {
   req.logOut(err => {
-    if (err) {
-      return next(err)
-    }
+    if (err) next(err)
 
     res.render("./login/login")
   })
