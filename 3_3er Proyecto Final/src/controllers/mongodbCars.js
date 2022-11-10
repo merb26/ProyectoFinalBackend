@@ -15,20 +15,22 @@ let products
 
 export const controllerCars = {
   getOrder: async (req, res) => {
-    const { user } = userLogin
-
-    const subject = `Nuevo pedido de ${user.name} (${user.email})`
+    const subject = `Nuevo pedido de ${userLogin.name} (${userLogin.email})`
 
     const order = newOrder(products, subject)
 
     const email = args.EMAIL || "manuele.ramirez.26@gmail.com"
-    sendMail(email, subject, order.message)
+    // sendMail(email, subject, order.message)
 
     const phoneAdmin = args.PHONE
-    sendWP(order.messageWhatsapp, phoneAdmin)
+    // sendWP(order.messageWhatsapp, phoneAdmin)
+    sendWP(
+      "Tu pedido Coder de Games se envió y debería ser entregado el tanto. Detalles: muchos",
+      phoneAdmin
+    )
 
     const messageSMS = "Tu pedido se ha realizado con éxito, está en proceso."
-    sendSMS(messageSMS, user.phone)
+    // sendSMS(messageSMS, userLogin.phone)
 
     containerCars.delete()
 

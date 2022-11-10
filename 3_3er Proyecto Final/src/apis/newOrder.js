@@ -7,10 +7,10 @@ export const newOrder = (products, subject) => {
     const { subtotal } = product
 
     let isWhatsapp = false
-    const productEmail = product(isWhatsapp, product)
+    const productEmail = productSend(isWhatsapp, product)
 
     isWhatsapp = true
-    const productWhatsapp = product(isWhatsapp, product)
+    const productWhatsapp = productSend(isWhatsapp, product)
 
     total += subtotal
 
@@ -29,14 +29,15 @@ export const newOrder = (products, subject) => {
   }
 }
 
-const product = (isWhatsapp, product) => {
+const productSend = (isWhatsapp, product) => {
   const { name, description, code, price, amount, subtotal } = product
 
   let br = "<br>"
-  isWhatsapp && (br = "")
 
-  const sendProduct = `
-  
+  let sendProduct = ""
+
+  if (!isWhatsapp) {
+    sendProduct = `
   
     Nombre: ${name} ${br}
     Descripción: ${description} ${br}
@@ -47,6 +48,14 @@ const product = (isWhatsapp, product) => {
 
 
     `
+  } else {
+    sendProduct += `Nombre: ${name}`
+    sendProduct += `Descripción: ${description}`
+    sendProduct += `Código: ${code}`
+    sendProduct += `Precio: $${price}`
+    sendProduct += `Cantidad: ${amount}`
+    sendProduct += `Subtotal: $${subtotal}`
+  }
 
   return sendProduct
 }

@@ -2,6 +2,7 @@ import { Router } from "express"
 export const routeLogin = Router()
 
 import passport from "../apis/passportLocal.js"
+import { loggerErr } from "../../loggers/logger.js"
 
 // /
 
@@ -25,4 +26,7 @@ routeLogin.get("/logout", async (req, res, next) => {
   })
 })
 
-routeLogin.get("/errorSesion", (req, res) => res.render("./login/errorSesion"))
+routeLogin.get("/errorSesion", (req, res) => {
+  loggerErr.error({ url: `${req.url}` }, "Error al iniciar sesión")
+  res.render("./login/errorSesion")
+})

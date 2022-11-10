@@ -38,8 +38,8 @@ export const loginMongodb = {
     let user = usersDB.find(userDB => userDB.email === username)
     if (user) return done(null, false, { message: "User already exists" })
 
-    const uuid = v4()
     // Sube la imagen al servidor
+    const uuid = v4()
     let image = req.files.file
     image.mv(`./public/img/${uuid}-${image.name}`, err => {
       if (err) return done(null, false, { message: "Error upload file" })

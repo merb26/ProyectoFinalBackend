@@ -6,6 +6,7 @@ import session from "express-session"
 const app = express()
 import passport from "passport"
 import mongoose from "mongoose"
+import { loggerCons, loggerWarn } from "./loggers/logger.js"
 import cluster from "cluster"
 import numCPUs from "os"
 const cpus = numCPUs.cpus().length
@@ -79,7 +80,7 @@ app.set("view engine", "pug")
 const modo = args.MODO || ""
 
 if (cluster.isPrimary && modo.toLowerCase() == "cluster") {
-  console.log(`Master ${process.pid} is running`)
+  loggerCons.info({ level: "info" }, `Master ${process.pid} is running`)
 
   for (let index = 0; index < cpus; index++) {
     cluster.fork()
@@ -97,5 +98,10 @@ if (cluster.isPrimary && modo.toLowerCase() == "cluster") {
 
   runServer(app)
 
-  console.log(`Worker ${process.pid} started`)
+  app.get("*", async (req, res) => {
+    loggerWarn.warn({ url: `${req.url}` }, "Ruta inexistente")
+    res.json({ message: "No existe la página" })
+  })
+
+  loggerCons.info({ level: "info" }, `Worker ${process.pid} started`)
 }

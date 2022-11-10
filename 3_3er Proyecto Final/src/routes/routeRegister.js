@@ -3,6 +3,7 @@ import passport from "passport"
 export const routeRegister = Router()
 
 import { countries } from "../apis/prefijosInternacionales.js"
+import { loggerErr } from "../../loggers/logger.js"
 
 // /register
 
@@ -24,6 +25,7 @@ routeRegister.post(
   })
 )
 
-routeRegister.get("/failer", (req, res) =>
+routeRegister.get("/failer", (req, res) => {
+  loggerErr.error({ url: `${req.url}` }, "Error al registrar")
   res.render("./register/errorRegister")
-)
+})
