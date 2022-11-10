@@ -4,9 +4,10 @@ import express from "express"
 import fileUpload from "express-fileupload"
 import session from "express-session"
 const app = express()
+import cookieParser from "cookie-parser"
+import MongoStore from "connect-mongo"
 import passport from "passport"
 import mongoose from "mongoose"
-import { loggerCons, loggerWarn } from "./loggers/logger.js"
 import cluster from "cluster"
 import numCPUs from "os"
 const cpus = numCPUs.cpus().length
@@ -19,9 +20,11 @@ import { routeProducts } from "./src/routes/routeProducts.js"
 import { routerCar } from "./src/routes/routerCar.js"
 import { routeOrder } from "./src/routes/routeOrder.js"
 import { runServer } from "./server.js"
+import { loggerCons, loggerWarn } from "./loggers/logger.js"
 
 app.use(express.static("public"))
 app.use(express.json())
+app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
 app.use(fileUpload())
 
@@ -48,14 +51,18 @@ const URL = process.env.URL_MONGODB
 app.use(
   session({
     secret: process.env.SECRET || "mY_seCret",
+    store: MongoStore.create({
+      mongoUrl: process.env.URL_MONGODB,
+      mongoOptions: {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      },
+    }),
     cookie: {
       maxAge: 600 * 1000,
-      httpOnly: true,
-      secure: false,
     },
-    rolling: true,
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
   })
 )
 
