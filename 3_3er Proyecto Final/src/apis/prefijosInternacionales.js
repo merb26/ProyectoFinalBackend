@@ -1,4 +1,4 @@
-export const e = [
+export const countries = [
   ["Afghanistan (‫افغانستان‬‎)", "af", "93"],
   ["Albania (Shqipëri)", "al", "355"],
   ["Algeria (‫الجزائر‬‎)", "dz", "213"],

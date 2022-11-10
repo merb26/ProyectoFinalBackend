@@ -3,6 +3,8 @@ export const routeLogin = Router()
 
 import passport from "../apis/passportLocal.js"
 
+// /
+
 routeLogin.get("/", async (req, res) => {
   res.render("./login/login")
 })
@@ -23,6 +25,4 @@ routeLogin.get("/logout", async (req, res, next) => {
   })
 })
 
-routeLogin.get("/errorSesion", (req, res) => {
-  res.render("./login/errorSesion")
-})
+routeLogin.get("/errorSesion", (req, res) => res.render("./login/errorSesion"))

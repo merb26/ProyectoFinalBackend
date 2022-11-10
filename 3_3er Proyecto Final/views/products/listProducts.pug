@@ -8,12 +8,12 @@ html
             div Games Virtual
             div(class="information")
                 div
-                    img(class="information__avatar" src=`${userHome.urlPhoto}` alt="Foto del usuario" width="100px" height="100px")
+                    img(class="information__avatar" src=`${userLogin.urlPhoto}` alt="Foto del usuario" width="100px" height="100px")
                 div(class="information__usuario")
-                    div=`Email: ${userHome.email}`
-                    div=`Nombre: ${userHome.name}`
-                    div=`Dirección: ${userHome.address}`
-                    div=`Teléfono: ${userHome.phone}`
+                    div=`Email: ${userLogin.email}`
+                    div=`Nombre: ${userLogin.name}`
+                    div=`Dirección: ${userLogin.address}`
+                    div=`Teléfono: ${userLogin.phone}`
             div
                 form(method="GET" action="./car/1/products")
                     button(onclick="submit")

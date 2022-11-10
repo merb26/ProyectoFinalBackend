@@ -15,8 +15,8 @@ html
                 input(type="text" name="name" placeholder="Nombre" class="mt-3 form-control" required)
                 input(type="text" name="address" placeholder="Dirección" class="mt-3 form-control" required)
                 select( name="prefijo" id="prefijo" class="mt-3 form-control")
-                    each pref in prefijos
-                        option(value=`${pref.prefijo}`)=pref.pais + ": +" + pref.prefijo
+                    each prefixe in prefixes
+                        option(value=`${prefixe.prefixe}`)=prefixe.country + ": +" + prefixe.prefixe
                 input(id="phone" type="tel" name="phone" placeholder="Teléfono" class="mt-3 form-control" required)
                 span Avatar
                 input(accept=".png, .jpg, .jpeg" filename='file' type="file" name="file" id="file" class="mt-3 form-control" required)

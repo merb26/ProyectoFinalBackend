@@ -8,9 +8,7 @@ import { sendMail } from "../apis/sendMail.js"
 
 const container = new Container()
 
-export const userLogin = {
-  user: {},
-}
+export let userLogin = {}
 
 export const loginMongodb = {
   authentic: (req, res, next) => {
@@ -27,7 +25,7 @@ export const loginMongodb = {
     if (!passIsValide)
       return done(null, false, { message: "Password incorrect" })
 
-    userLogin.user = user
+    userLogin = user
 
     done(null, user)
   },
@@ -56,7 +54,7 @@ export const loginMongodb = {
       urlPhoto: `./img/${uuid}-${image.name}`,
     }
 
-    userLogin.user = newUser
+    userLogin = newUser
 
     const userMongoDB = await container.save(newUser)
 

@@ -6,6 +6,7 @@ import { ContainerProducts } from "../containers/productsMongoDB.js"
 import { userLogin } from "../controllers/login.js"
 import { sendMail } from "../apis/sendMail.js"
 import { sendWP, sendSMS } from "../apis/twilio.js"
+import { newOrder } from "../apis/newOrder.js"
 
 const containerCars = new ContainerCars()
 const containerProducts = new ContainerProducts()
@@ -15,73 +16,37 @@ let products
 export const controllerCars = {
   getOrder: async (req, res) => {
     const { user } = userLogin
+
     const subject = `Nuevo pedido de ${user.name} (${user.email})`
 
-    let message = ""
-    let messageWP = ""
-    let total = 0
-    products.forEach(product => {
-      const { name, description, code, price, amount, subtotal } = product
-      const prod = `
-
-
-      Nombre: ${name} <br>
-      Descripción: ${description} <br>
-      Código: ${code} <br>
-      Precio: $${price} <br>
-      Cantidad: ${amount} <br>
-      Subtotal: $${subtotal} <br> <br>
-
-
-      `
-
-      const prodWP = `
-
-      
-      Nombre: ${name} 
-      Descripción: ${description}
-      Código: ${code}
-      Precio: $${price}
-      Cantidad: ${amount} 
-      Subtotal: $${subtotal} 
-
-
-      `
-
-      total += subtotal
-
-      message += prod
-      messageWP += prodWP
-    })
-    message += `TOTAL: $${total}`
-    messageWP += `TOTAL: $${total}`
+    const order = newOrder(products, subject)
 
     const email = args.EMAIL || "manuele.ramirez.26@gmail.com"
-    sendMail(email, subject, message)
+    sendMail(email, subject, order.message)
 
-    messageWP = subject + messageWP
     const phoneAdmin = args.PHONE
-    sendWP(messageWP, phoneAdmin)
+    sendWP(order.messageWhatsapp, phoneAdmin)
 
     const messageSMS = "Tu pedido se ha realizado con éxito, está en proceso."
     sendSMS(messageSMS, user.phone)
 
     containerCars.delete()
 
-    const userHome = userLogin.user
-    res.render("./order/order", { userHome })
+    res.render("./order/order", { userLogin })
   },
+
   getCars: async (req, res) => {
     const car = await containerCars.getAll()
 
     if (car.length === 0) {
       products = false
     } else {
-      car[0].products = car[0].products.map(obj => {
-        obj["id"] = obj["_id"]
-        delete obj["_id"]
-        return obj
+      car[0].products = car[0].products.map(product => {
+        product.id = product._id
+        product._id = undefined
+        return product
       })
+
       products = car[0].products
     }
 
@@ -99,6 +64,7 @@ export const controllerCars = {
 
     res.render("./car/productsSelects", { products, carSelect, total })
   },
+
   saveProductOnCar: async (req, res) => {
     const { id: idProduct } = req.params
     const { amount } = req.body
@@ -118,9 +84,9 @@ export const controllerCars = {
     } else {
       let isProductFound = false
 
-      car[0].products.forEach(product => {
-        isProductFound = product._id.toString().includes(idProduct)
-      })
+      car[0].products.forEach(
+        product => (isProductFound = product._id.toString().includes(idProduct))
+      )
 
       if (!isProductFound) {
         car[0].products.push(product)
@@ -128,6 +94,7 @@ export const controllerCars = {
       }
     }
   },
+
   removeProductoOnCar: async (req, res) => {
     const idProduct = req.params.id_prod
 
@@ -138,13 +105,10 @@ export const controllerCars = {
         car[0].products.splice(index, 1)
     }
 
-    if (car[0].products.length === 0) {
-      containerCars.delete()
-    } else {
-      containerCars.update(car[0])
-    }
+    car[0].products.length === 0
+      ? containerCars.delete()
+      : containerCars.update(car[0])
   },
-  removeCar: async (req, res) => {
-    containerCars.delete()
-  },
+
+  removeCar: async (req, res) => containerCars.delete(),
 }

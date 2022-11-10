@@ -2,26 +2,28 @@ import { Router } from "express"
 import passport from "passport"
 export const routeRegister = Router()
 
-import { e } from "../apis/prefijosInternacionales.js"
+import { countries } from "../apis/prefijosInternacionales.js"
 
-routeRegister
-  .get("/", (req, res) => {
-    const prefijos = []
+// /register
 
-    e.forEach(pais => {
-      prefijos.push({ pais: pais[0], prefijo: pais[2] })
-    })
+routeRegister.get("/", (req, res) => {
+  const prefixes = []
 
-    res.render("./register/register", { prefijos })
+  countries.forEach(country => {
+    prefixes.push({ country: country[0], prefixe: country[2] })
   })
-  .post(
-    "/",
-    passport.authenticate("signup", {
-      successRedirect: "/products",
-      failureRedirect: "register/failer",
-    })
-  )
 
-routeRegister.get("/failer", (req, res) => {
-  res.render("./register/errorRegister")
+  res.render("./register/register", { prefixes })
 })
+
+routeRegister.post(
+  "/",
+  passport.authenticate("signup", {
+    successRedirect: "/products",
+    failureRedirect: "/register/failer",
+  })
+)
+
+routeRegister.get("/failer", (req, res) =>
+  res.render("./register/errorRegister")
+)

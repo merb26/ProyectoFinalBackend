@@ -7,25 +7,25 @@ export const controllerProducts = {
   getProducts: async (req, res) => {
     const products = await container.getAll()
 
-    let userHome = userLogin.user
-
-    res.render("./products/listProducts", { products, userHome })
+    res.render("./products/listProducts", { products, userLogin })
   },
+
   getProductUpdate: async (req, res) => {
-    const id = req.params.id
+    const { id } = req.params
 
     const product = await container.getById(id)
 
     res.render("./products/updateProduct", { product })
   },
-  getProduct: async (req, res) => {
-    const id = req.params.id
 
-    let userHome = userLogin.user
+  getProduct: async (req, res) => {
+    const { id } = req.params
+
     const product = await container.getById(id)
 
-    res.render("./products/product", { product, userHome })
+    res.render("./products/product", { product, userLogin })
   },
+
   saveProduct: async (req, res) => {
     const product = { ...req.body, timestamp: Date.now() }
 
@@ -33,13 +33,12 @@ export const controllerProducts = {
 
     res.redirect("/products")
   },
+
   updateProduct: async (req, res) => {
     const _id = req.params.id
     const product = { ...req.body, _id }
 
     container.update(product)
-
-    res.json({})
   },
   removeProduct: async (req, res) => {
     const _id = req.params.id
