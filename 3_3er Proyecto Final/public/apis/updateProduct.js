@@ -29,7 +29,8 @@ const btnUpdate = () => {
 
   fetch(`/products/${id}`, fetchPUT)
     .then(res => res.json())
-    .then(data => {
+    .then(res => {
+      alert(JSON.stringify(res))
       window.location.replace("/products")
     })
 }

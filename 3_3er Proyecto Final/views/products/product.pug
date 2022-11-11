@@ -13,10 +13,10 @@ html
                 div
                     img(class="information__avatar" src=`../${userLogin.urlPhoto}` alt="Foto del usuario" width="100px" height="100px")
                 div(class="information__usuario")
-                    div=`Email: ${userLogin.email}`
-                    div=`Nombre: ${userLogin.name}`
-                    div=`Dirección: ${userLogin.address}`
-                    div=`Teléfono: ${userLogin.phone}`
+                    div(id="email")
+                    div(id="name")
+                    div(id="address")
+                    div(id="phone")
             div
                 form(method="GET" action="../car/1/products")
                     button(onclick="submit")
@@ -37,8 +37,8 @@ html
                 select(name="stock" id="stock")
                     while n <= `${product.stock}`
                         option(value=n)= n++
-                //- form(method="POST" action=`../car/${product.id}/products`)
-                button(onclick=`addProductToCar('${product.id}')`) Agregar al carrito 
+                button(onclick=`addProductToCar('${product.id}')` class="mt-3 mb-3") Agregar al carrito 
                 a(href=("javascript: history.go(-1)"))
                     button Seguir comprando
         script(src="../../../apis/addProductToCar.js") 
+        script(src="../../../apis/getUser.js") 

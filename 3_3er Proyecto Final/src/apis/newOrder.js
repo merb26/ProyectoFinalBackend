@@ -19,7 +19,7 @@ export const newOrder = (products, subject) => {
   })
 
   message += `TOTAL: $${total}`
-  messageWhatsapp += `TOTAL: $${total}`
+  messageWhatsapp += `\nTOTAL: $${total}`
 
   messageWhatsapp = subject + messageWhatsapp
 
@@ -49,12 +49,12 @@ const productSend = (isWhatsapp, product) => {
 
     `
   } else {
-    sendProduct += `Nombre: ${name}`
-    sendProduct += `Descripción: ${description}`
-    sendProduct += `Código: ${code}`
-    sendProduct += `Precio: $${price}`
-    sendProduct += `Cantidad: ${amount}`
-    sendProduct += `Subtotal: $${subtotal}`
+    sendProduct += `\n\nNombre: ${name}\n`
+    sendProduct += `Descripción: ${description}\n`
+    sendProduct += `Código: ${code}\n`
+    sendProduct += `Precio: $${price}\n`
+    sendProduct += `Cantidad: ${amount}\n`
+    sendProduct += `Subtotal: $${subtotal}\n`
   }
 
   return sendProduct

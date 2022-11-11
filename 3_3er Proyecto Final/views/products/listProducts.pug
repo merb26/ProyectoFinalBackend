@@ -10,10 +10,10 @@ html
                 div
                     img(class="information__avatar" src=`${userLogin.urlPhoto}` alt="Foto del usuario" width="100px" height="100px")
                 div(class="information__usuario")
-                    div=`Email: ${userLogin.email}`
-                    div=`Nombre: ${userLogin.name}`
-                    div=`Dirección: ${userLogin.address}`
-                    div=`Teléfono: ${userLogin.phone}`
+                    div(class="info")=`Email: ${userLogin.email}`
+                    div(class="info")=`Nombre: ${userLogin.name}`
+                    div(class="info")=`Dirección: ${userLogin.address}`
+                    div(class="info")=`Teléfono: ${userLogin.phone}`
             div
                 form(method="GET" action="./car/1/products")
                     button(onclick="submit")
@@ -40,7 +40,6 @@ html
                                 input(class="m-2 btn btn-dark form-control buttonAdministrator" type="submit" value="Actualizar")
                                 input(class="m-2 btn btn-dark form-control buttonAdministrator" onclick=`return btnRemove(this,${index})` type="button" value="Eliminar")
                         |
-                        //- form(action=`./car/${product.id}/products` method="POST")
                         form(action=`./products/${product.id}` method="POST")
                             input(class="m-2 w-75 btn btn-dark form-control" type="submit" value="Más detalle")              
         |
@@ -51,3 +50,4 @@ html
                     input(class="m-4 p-2 btn btn-dark form-control button" type="submit" value="Agregar producto")
         |
         script(src="../../apis/listProduct.js") 
+        script(src="../../apis/user.js") 

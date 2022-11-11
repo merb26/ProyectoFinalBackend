@@ -59,6 +59,7 @@ export const loginMongodb = {
     const userMongoDB = await container.save(newUser)
 
     const toEmail = args.EMAIL || "manuele.ramirez.26@gmail.com"
+
     const message = `
     Nombre: ${newUser.name}
     <br>

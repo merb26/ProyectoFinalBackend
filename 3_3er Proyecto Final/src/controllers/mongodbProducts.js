@@ -39,10 +39,14 @@ export const controllerProducts = {
     const product = { ...req.body, _id }
 
     container.update(product)
+
+    res.json({ message: "ok" })
   },
   removeProduct: async (req, res) => {
     const _id = req.params.id
 
     container.deleteById(_id)
+
+    res.json({ message: "ok" })
   },
 }

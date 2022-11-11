@@ -24,10 +24,6 @@ export const controllerCars = {
 
     const phoneAdmin = args.PHONE
     // sendWP(order.messageWhatsapp, phoneAdmin)
-    sendWP(
-      "Tu pedido Coder de Games se envió y debería ser entregado el tanto. Detalles: muchos",
-      phoneAdmin
-    )
 
     const messageSMS = "Tu pedido se ha realizado con éxito, está en proceso."
     // sendSMS(messageSMS, userLogin.phone)
