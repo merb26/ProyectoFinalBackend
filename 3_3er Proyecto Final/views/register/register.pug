@@ -18,8 +18,6 @@ html
                     each prefixe in prefixes
                         option(value=`${prefixe.prefixe}`)=prefixe.country + ": +" + prefixe.prefixe
                 input(id="phone" type="tel" name="phone" placeholder="Teléfono" class="mt-3 form-control" required)
-                span Avatar
-                input(accept=".png, .jpg, .jpeg" filename='file' type="file" name="file" id="file" class="mt-3 form-control" required)
                 |
                 input(type="submit" value="Registrarme" class="mt-3 btn btn-outline-warning boton")
         |
