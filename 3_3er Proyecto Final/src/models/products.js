@@ -9,7 +9,8 @@ const productSchema = new mongoose.Schema({
   urlPicture: {type: String, require: true},
   price: {type: String, require: true},
   stock: {type: String, require: true},
-  timestamp: {tyep: String},
+  timestamp: {type: String},
+  category: {type: String},
 });
 
 export default mongoose.model(productsCollection, productSchema);

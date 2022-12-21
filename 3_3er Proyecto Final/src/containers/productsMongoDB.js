@@ -1,21 +1,21 @@
-import products from "../models/products.js"
+import products from '../models/products.js';
 
 export class ContainerProducts {
   /* -------------------------------------------------------------------------- */
   /*                                    save                                    */
   /* -------------------------------------------------------------------------- */
   async save(obj) {
-    const product = new products(obj)
-    product.save()
+    const product = new products(obj);
+    product.save();
   }
 
   /* -------------------------------------------------------------------------- */
   /*                                    update                                    */
   /* -------------------------------------------------------------------------- */
   async update(obj) {
-    const { _id, name, description, code, urlPicture, price, stock } = obj
+    const {_id, name, description, code, urlPicture, price, stock} = obj;
     await products.updateOne(
-      { _id },
+      {_id},
       {
         $set: {
           name,
@@ -26,27 +26,27 @@ export class ContainerProducts {
           stock,
         },
       }
-    )
+    );
   }
 
   /* -------------------------------------------------------------------------- */
   /*                                   getById                                  */
   /* -------------------------------------------------------------------------- */
   async getById(_id) {
-    return products.findOne({ _id })
+    return products.findOne({_id});
   }
 
   /* -------------------------------------------------------------------------- */
   /*                                   getAll                                   */
   /* -------------------------------------------------------------------------- */
   async getAll() {
-    return products.find({})
+    return products.find({});
   }
 
   /* -------------------------------------------------------------------------- */
   /*                                 deleteById                                 */
   /* -------------------------------------------------------------------------- */
   async deleteById(_id) {
-    await products.deleteOne({ _id })
+    await products.deleteOne({_id});
   }
 }
