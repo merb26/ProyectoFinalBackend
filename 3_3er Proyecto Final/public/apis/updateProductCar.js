@@ -1,4 +1,4 @@
-const btnUpdate = () => {
+const btnUpdateCar = () => {
   const id = document.querySelector('#id').value;
   const timestamp = new Date();
   const name = document.querySelector('#name').value;
@@ -6,30 +6,30 @@ const btnUpdate = () => {
   const code = document.querySelector('#code').value;
   const urlPicture = document.querySelector('#urlPicture').value;
   const price = document.querySelector('#price').value;
-  const stock = document.querySelector('#stock').value;
+  const amount = document.querySelector('#amount').value;
 
-  const product = {
+  const productUpdate = {
     timestamp,
     name,
     description,
     code,
     urlPicture,
     price,
-    stock,
+    amount,
   };
 
   const fetchPUT = {
     method: 'PUT',
-    body: JSON.stringify(product),
+    body: JSON.stringify({productUpdate}),
     headers: {
       Accept: ' application/json ',
       'Content-Type': ' application/json ',
     },
   };
 
-  fetch(`/products/${id}`, fetchPUT)
+  fetch(`/car/${id}`, fetchPUT)
     .then((res) => res.json())
     .then((res) => {
-      window.location.replace('/products');
+      window.location.replace('/car/1/products');
     });
 };

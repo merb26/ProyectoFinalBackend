@@ -1,38 +1,44 @@
-import { Router } from "express"
+import {Router} from 'express';
 
-import { loginMongodb } from "../controllers/login.js"
-import { controllerProducts } from "../controllers/mongodbProducts.js"
+import {loginMongodb} from '../controllers/login.js';
+import {controllerProducts} from '../controllers/mongodbProducts.js';
 
-export const routeProducts = Router()
+export const routeProducts = Router();
 
-routeProducts.get("/", loginMongodb.authentic, controllerProducts.getProducts)
+routeProducts.get('/', loginMongodb.authentic, controllerProducts.getProducts);
 
-routeProducts.get("/formSave", loginMongodb.authentic, async (req, res) =>
-  res.render("./products/addProduct")
-)
+routeProducts.get('/formSave', loginMongodb.authentic, async (req, res) =>
+  res.render('./products/addProduct')
+);
 
 routeProducts.get(
-  "/formUpdate/:id",
+  '/formUpdate/:id',
   loginMongodb.authentic,
   controllerProducts.getProductUpdate
-)
+);
 
-routeProducts.post("/", loginMongodb.authentic, controllerProducts.saveProduct)
+routeProducts.get(
+  '/category/:category',
+  loginMongodb.authentic,
+  controllerProducts.getProductsByCategory
+);
+
+routeProducts.post('/', loginMongodb.authentic, controllerProducts.saveProduct);
 
 routeProducts.put(
-  "/:id",
+  '/:id',
   loginMongodb.authentic,
   controllerProducts.updateProduct
-)
+);
 
 routeProducts.delete(
-  "/:id",
+  '/:id',
   loginMongodb.authentic,
   controllerProducts.removeProduct
-)
+);
 
-routeProducts.post(
-  "/:id",
+routeProducts.get(
+  '/:id([0-9a-f]{24})',
   loginMongodb.authentic,
   controllerProducts.getProduct
-)
+);

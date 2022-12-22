@@ -23,7 +23,17 @@ export const controllerProducts = {
 
     const product = await container.getById(id);
 
-    res.render('./products/product', {product, userLogin});
+    product
+      ? res.render('./products/product', {product, userLogin})
+      : res.json({message: 'No se pudo encontrar el producto'});
+  },
+
+  getProductsByCategory: async (req, res) => {
+    const {category} = req.params;
+
+    const products = await container.getByCategory(category);
+
+    res.render('./products/category', {products, userLogin});
   },
 
   saveProduct: async (req, res) => {

@@ -1,25 +1,21 @@
-const btnRemove = index => {
-  const id = document.querySelector(`#id${index}`).value
+const fetchDELETE = {
+  method: 'DELETE',
+};
 
-  const fetchDELETE = {
-    method: "DELETE",
-  }
+const btnRemove = (index) => {
+  const id = document.querySelector(`#id${index}`).value;
 
   fetch(`/car/1/products/${id}`, fetchDELETE).then(
     setTimeout(() => {
-      location.reload()
+      location.reload();
     }, 500)
-  )
-}
+  );
+};
 
 const btnRemoveCar = () => {
-  const fetchDELETE = {
-    method: "DELETE",
-  }
-
   fetch(`/car/1`, fetchDELETE).then(
     setTimeout(() => {
-      location.reload()
+      location.reload();
     }, 500)
-  )
-}
+  );
+};

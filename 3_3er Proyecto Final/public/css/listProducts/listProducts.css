@@ -24,10 +24,11 @@ body {
   margin-left: 1rem;
 }
 
-body h1 {
+body h1,
+h2 {
   text-align: center;
   margin: 15px;
-  font-family: "Courier New", Courier, monospace;
+  font-family: 'Courier New', Courier, monospace;
   font-weight: bold;
 }
 body .boxListProducts {

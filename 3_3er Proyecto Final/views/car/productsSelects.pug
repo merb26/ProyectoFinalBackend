@@ -19,6 +19,8 @@ html
                         div(class="card-body")
                             p(class="card-text")=`Cantidad: ${product.amount}`
                             p(class="card-text")=`Subtotal: $${product.subtotal}`
+                            form(action=`../../car/formUpdate/${product.id}` method="GET")
+                                input(class="m-2 btn btn-dark form-control buttonAdministrator" type="submit" value="Actualizar")
                             input(class="m-2 btn btn-dark form-control buttonAdministrator" onclick=`return btnRemove(${index})` type="button" value="Eliminar")
             else
                 h2 No hay productos
