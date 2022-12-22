@@ -19,6 +19,7 @@ import {routeRegister} from './src/routes/routeRegister.js';
 import {routeProducts} from './src/routes/routeProducts.js';
 import {routerCar} from './src/routes/routerCar.js';
 import {routeOrder} from './src/routes/routeOrder.js';
+import {routeMessages} from './src/routes/routeChat.js';
 import {loggerCons, loggerWarn} from './loggers/logger.js';
 
 app.use(express.static('public'));
@@ -105,6 +106,7 @@ if (cluster.isPrimary && modo.toLowerCase() == 'cluster') {
   app.use('/car', routerCar);
   app.use('/products', routeProducts);
   app.use('/order', routeOrder);
+  app.use('/chat', routeMessages);
 
   /* -------------------------------------------------------------------------- */
   /*                                      /                                     */
