@@ -1,16 +1,14 @@
-// import mongoose from 'mongoose';
+import mongoose from 'mongoose';
 
-// const productsCollection = 'products';
+const collection = 'orders';
 
-// const productSchema = new mongoose.Schema({
-//   name: {type: String, require: true, max: 100},
-//   description: {type: String},
-//   code: {type: String, require: true},
-//   urlPicture: {type: String, require: true},
-//   price: {type: String, require: true},
-//   stock: {type: String, require: true},
-//   timestamp: {type: String},
-//   category: {type: String},
-// });
+const schema = new mongoose.Schema({
+  email: {type: String},
+  state: {type: String},
+  total: {type: String},
+  numOrder: {type: String},
+  dateAndHour: {type: String},
+  products: {type: Array},
+});
 
-// export default mongoose.model(productsCollection, productSchema);
+export default mongoose.model(collection, schema);

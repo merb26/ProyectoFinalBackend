@@ -1,40 +1,47 @@
+let orderMongo = {products: [], state: 'generado'};
+
 export const newOrder = (products, subject) => {
-  let message = ""
-  let messageWhatsapp = ""
-  let total = 0
+  orderMongo.products = [];
+  let message = '';
+  let messageWhatsapp = '';
+  let total = 0;
 
-  products.forEach(product => {
-    const { subtotal } = product
+  products.forEach((product) => {
+    const subtotal = product.amount * product.price;
+    product = {...product, subtotal};
 
-    let isWhatsapp = false
-    const productEmail = productSend(isWhatsapp, product)
+    let isWhatsapp = false;
+    const productEmail = productSend(isWhatsapp, product);
 
-    isWhatsapp = true
-    const productWhatsapp = productSend(isWhatsapp, product)
+    isWhatsapp = true;
+    const productWhatsapp = productSend(isWhatsapp, product);
 
-    total += subtotal
+    total += subtotal;
 
-    message += productEmail
-    messageWhatsapp += productWhatsapp
-  })
+    message += productEmail;
+    messageWhatsapp += productWhatsapp;
+  });
 
-  message += `TOTAL: $${total}`
-  messageWhatsapp += `\nTOTAL: $${total}`
+  message += `TOTAL: $${total}`;
+  messageWhatsapp += `\nTOTAL: $${total}`;
 
-  messageWhatsapp = subject + messageWhatsapp
+  const orderMongo2 = {...orderMongo, total};
+
+  messageWhatsapp = subject + messageWhatsapp;
 
   return {
     message,
     messageWhatsapp,
-  }
-}
+    orderMongo2,
+  };
+};
 
 const productSend = (isWhatsapp, product) => {
-  const { name, description, code, price, amount, subtotal } = product
+  const {name, description, code, price, amount, subtotal} = product;
 
-  let br = "<br>"
+  let br = '<br>';
 
-  let sendProduct = ""
+  let sendProduct = '';
 
   if (!isWhatsapp) {
     sendProduct = `
@@ -47,15 +54,25 @@ const productSend = (isWhatsapp, product) => {
     Subtotal: $${subtotal} ${br} ${br}
 
 
-    `
+    `;
+
+    const productMongo = {
+      name,
+      description,
+      price,
+      amount,
+      subtotal,
+    };
+
+    orderMongo.products.push(productMongo);
   } else {
-    sendProduct += `\n\nNombre: ${name}\n`
-    sendProduct += `Descripción: ${description}\n`
-    sendProduct += `Código: ${code}\n`
-    sendProduct += `Precio: $${price}\n`
-    sendProduct += `Cantidad: ${amount}\n`
-    sendProduct += `Subtotal: $${subtotal}\n`
+    sendProduct += `\n\nNombre: ${name}\n`;
+    sendProduct += `Descripción: ${description}\n`;
+    sendProduct += `Código: ${code}\n`;
+    sendProduct += `Precio: $${price}\n`;
+    sendProduct += `Cantidad: ${amount}\n`;
+    sendProduct += `Subtotal: $${subtotal}\n`;
   }
 
-  return sendProduct
-}
+  return sendProduct;
+};
