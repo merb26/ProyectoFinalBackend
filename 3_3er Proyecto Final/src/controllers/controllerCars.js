@@ -5,8 +5,7 @@ import {CarsMongoDAO} from '../dao/carsMongoDAO.js';
 import {ProductsMongoDAO} from '../dao/productsMongoDAO.js';
 import {userLogin} from './login.js';
 import {sendMail} from '../apis/sendMail.js';
-import {sendWP, sendSMS} from '../apis/twilio.js';
-import {newOrder} from '../apis/newOrder.js';
+import {serviceCars} from '../services/serviceCars.js';
 
 const daoCars = new CarsMongoDAO();
 const daoProducts = new ProductsMongoDAO();
@@ -15,20 +14,7 @@ let products;
 
 export const controllerCars = {
   getOrder: async (req, res) => {
-    const subject = `Nuevo pedido de ${userLogin.name} (${userLogin.email})`;
-
-    const order = newOrder(products, subject);
-
-    const email = args.EMAIL || 'manuele.ramirez.26@gmail.com';
-    // sendMail(email, subject, order.message)
-
-    const phoneAdmin = args.PHONE;
-    // sendWP(order.messageWhatsapp, phoneAdmin)
-
-    const messageSMS = 'Tu pedido se ha realizado con éxito, está en proceso.';
-    // sendSMS(messageSMS, userLogin.phone)
-
-    daoCars.delete();
+    serviceCars.getOrder();
 
     res.render('./order/order', {userLogin});
   },
