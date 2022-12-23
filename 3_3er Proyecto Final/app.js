@@ -13,15 +13,16 @@ import * as dotenv from 'dotenv';
 
 const app = express();
 const serverHttp = http.createServer(app);
-const serverIO = new Server(serverHttp);
+export const serverIO = new Server(serverHttp);
 
 import {routeLogin} from './src/routes/routeLogin.js';
 import {routeRegister} from './src/routes/routeRegister.js';
 import {routeProducts} from './src/routes/routeProducts.js';
 import {routerCar} from './src/routes/routerCar.js';
 import {routeOrder} from './src/routes/routeOrder.js';
-import {routeMessages, connectServerIO} from './src/routes/routeChat.js';
+import {routeMessages} from './src/routes/routeChat.js';
 import {loggerCons, loggerWarn} from './src/apis/loggers/logger.js';
+import {connectServerIO} from './src/controllers/controllerMessages.js';
 
 dotenv.config();
 

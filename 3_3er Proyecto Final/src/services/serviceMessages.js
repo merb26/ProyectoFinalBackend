@@ -2,10 +2,9 @@ import {loggerErr, loggerCons} from '../apis/loggers/logger.js';
 import {MessagesRepo} from '../repository/messages/messagesRepo.js';
 
 export const serviceMessages = {
-  webSocket: (serverIO) => {
+  webSocket: (serverIO, email) => {
     serverIO.on('connection', (socket) => {
       loggerCons.info({level: 'info'}, 'Connection webSocket');
-
       socket.on('messageSent', (message) => {
         new MessagesRepo()
           .save(message)
@@ -21,5 +20,9 @@ export const serviceMessages = {
         socket.emit('messages', messages);
       });
     });
+  },
+
+  getMessagesByEmail: async (email) => {
+    return await new MessagesRepo().getByEmail(email);
   },
 };

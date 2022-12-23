@@ -17,6 +17,14 @@ export class MessagesRepo {
     return messagesDTO;
   }
 
+  async getByEmail(email) {
+    const messagesDB = await this.#dao.getByEmail(email);
+
+    const messagesDTO = asDTO(messagesDB);
+
+    return messagesDTO;
+  }
+
   async save(message) {
     const messagesDB = await this.#dao.save(message);
 

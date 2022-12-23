@@ -11,4 +11,8 @@ export class messagesMongoDAO {
   async getAll() {
     return messages.find({});
   }
+
+  async getByEmail(email) {
+    return messages.find({email});
+  }
 }
