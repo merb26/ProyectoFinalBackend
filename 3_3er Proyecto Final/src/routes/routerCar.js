@@ -1,7 +1,7 @@
 import {Router} from 'express';
 
 import {loginMongodb} from '../controllers/login.js';
-import {controllerCars} from '../controllers/mongodbCars.js';
+import {controllerCars} from '../controllers/controllerCars.js';
 
 export const routerCar = Router();
 

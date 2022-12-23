@@ -1,6 +1,6 @@
 import products from '../models/products.js';
 
-export class ContainerProducts {
+export class ProductsMongoDAO {
   /* -------------------------------------------------------------------------- */
   /*                                    save                                    */
   /* -------------------------------------------------------------------------- */

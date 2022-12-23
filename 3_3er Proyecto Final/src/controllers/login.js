@@ -2,10 +2,10 @@ import bcrypt from 'bcrypt';
 import yargs from 'yargs/yargs';
 const args = yargs(process.argv.slice(2)).argv;
 
-import {Container} from '../containers/users.js';
+import {usersMongoDAO} from '../dao/usersMongoDAO.js';
 import {sendMail} from '../apis/sendMail.js';
 
-const container = new Container();
+const dao = new usersMongoDAO();
 
 export let userLogin = {};
 
@@ -15,7 +15,7 @@ export const loginMongodb = {
   },
 
   passportLogin: async (username, password, done) => {
-    const usersDB = await container.getAll();
+    const usersDB = await dao.getAll();
 
     const user = usersDB.find((userDB) => userDB.email === username);
     if (!user) return done(null, false, {message: 'User not exist'});
@@ -30,7 +30,7 @@ export const loginMongodb = {
   },
 
   passportSignup: async (req, username, password, done) => {
-    const usersDB = await container.getAll();
+    const usersDB = await dao.getAll();
 
     const {name, address, phone, prefijo} = req.body;
 
@@ -47,7 +47,7 @@ export const loginMongodb = {
 
     userLogin = newUser;
 
-    const userMongoDB = await container.save(newUser);
+    const userMongoDB = await dao.save(newUser);
 
     const toEmail = args.EMAIL || 'manuele.ramirez.26@gmail.com';
 
@@ -66,7 +66,7 @@ export const loginMongodb = {
   },
 
   deserialize: async (id, done) => {
-    const usersDB = await container.getAll();
+    const usersDB = await dao.getAll();
     let user = usersDB.find((userDB) => userDB.id === id);
 
     done(null, user);

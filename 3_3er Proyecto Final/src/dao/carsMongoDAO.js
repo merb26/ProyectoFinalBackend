@@ -1,29 +1,29 @@
-import cars from "../models/cars.js"
+import cars from '../models/cars.js';
 
-export class ContainerCars {
+export class CarsMongoDAO {
   constructor() {}
   /* -------------------------------------------------------------------------- */
   /*                                    save                                    */
   /* -------------------------------------------------------------------------- */
   async save(obj) {
-    const car = new cars(obj)
-    car.save()
+    const car = new cars(obj);
+    car.save();
   }
 
   /* -------------------------------------------------------------------------- */
   /*                                    update                                    */
   /* -------------------------------------------------------------------------- */
   async update(obj) {
-    const { _id, products } = obj
+    const {_id, products} = obj;
 
     await cars.updateOne(
-      { _id },
+      {_id},
       {
         $set: {
           products,
         },
       }
-    )
+    );
   }
 
   /* -------------------------------------------------------------------------- */
@@ -37,13 +37,13 @@ export class ContainerCars {
   /*                                   getAll                                   */
   /* -------------------------------------------------------------------------- */
   async getAll() {
-    return cars.find({})
+    return cars.find({});
   }
 
   /* -------------------------------------------------------------------------- */
   /*                                 deleteById                                 */
   /* -------------------------------------------------------------------------- */
   async delete() {
-    await cars.deleteMany({})
+    await cars.deleteMany({});
   }
 }

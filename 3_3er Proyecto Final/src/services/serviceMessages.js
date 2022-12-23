@@ -1,11 +1,11 @@
-import {loggerErr, loggerCons} from '../../loggers/logger.js';
+import {loggerErr, loggerCons} from '../apis/loggers/logger.js';
+import {MessagesRepo} from '../repository/messages/messagesRepo.js';
 
 export const serviceMessages = {
-  visualizeMessages: (req) => {
-    loggerCons.info({level: 'info', url: `${req.originalUrl}`}, 'Ruta request');
-  },
   webSocket: (serverIO) => {
     serverIO.on('connection', (socket) => {
+      loggerCons.info({level: 'info'}, 'Connection webSocket');
+
       socket.on('messageSent', (message) => {
         new MessagesRepo()
           .save(message)

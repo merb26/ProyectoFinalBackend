@@ -2,7 +2,7 @@ import {Router} from 'express';
 export const routeLogin = Router();
 
 import passport from '../apis/passportLocal.js';
-import {loggerErr} from '../../loggers/logger.js';
+import {loggerErr} from '../apis/loggers/logger.js';
 
 // /
 

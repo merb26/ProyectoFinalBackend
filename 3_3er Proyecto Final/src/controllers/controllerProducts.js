@@ -1,11 +1,11 @@
-import {ContainerProducts} from '../containers/productsMongoDB.js';
-import {userLogin} from '../controllers/login.js';
+import {ProductsMongoDAO} from '../dao/productsMongoDAO.js';
+import {userLogin} from './login.js';
 
-const container = new ContainerProducts();
+const dao = new ProductsMongoDAO();
 
 export const controllerProducts = {
   getProducts: async (req, res) => {
-    const products = await container.getAll();
+    const products = await dao.getAll();
 
     res.render('./products/listProducts', {products, userLogin});
   },
@@ -13,7 +13,7 @@ export const controllerProducts = {
   getProductUpdate: async (req, res) => {
     const {id} = req.params;
 
-    const product = await container.getById(id);
+    const product = await dao.getById(id);
 
     res.render('./products/updateProduct', {product});
   },
@@ -21,7 +21,7 @@ export const controllerProducts = {
   getProduct: async (req, res) => {
     const {id} = req.params;
 
-    const product = await container.getById(id);
+    const product = await dao.getById(id);
 
     product
       ? res.render('./products/product', {product, userLogin})
@@ -31,7 +31,7 @@ export const controllerProducts = {
   getProductsByCategory: async (req, res) => {
     const {category} = req.params;
 
-    const products = await container.getByCategory(category);
+    const products = await dao.getByCategory(category);
 
     res.render('./products/category', {products, userLogin});
   },
@@ -39,7 +39,7 @@ export const controllerProducts = {
   saveProduct: async (req, res) => {
     const product = {...req.body, timestamp: Date.now()};
 
-    container.save(product);
+    dao.save(product);
 
     res.redirect('/products');
   },
@@ -48,14 +48,14 @@ export const controllerProducts = {
     const _id = req.params.id;
     const product = {...req.body, _id};
 
-    container.update(product);
+    dao.update(product);
 
     res.json({message: 'ok'});
   },
   removeProduct: async (req, res) => {
     const _id = req.params.id;
 
-    container.deleteById(_id);
+    dao.deleteById(_id);
 
     res.json({message: 'ok'});
   },

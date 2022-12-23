@@ -931,3 +931,6 @@
 {"level":40,"time":1671672650060,"pid":14936,"hostname":"DESKTOP-G2R0246","url":"/socket.io/socket.io.js","msg":"Ruta inexistente"}
 {"level":40,"time":1671672650079,"pid":14936,"hostname":"DESKTOP-G2R0246","url":"/messages.js","msg":"Ruta inexistente"}
 {"level":40,"time":1671672650155,"pid":14936,"hostname":"DESKTOP-G2R0246","url":"/favicon.ico","msg":"Ruta inexistente"}
+{"level":40,"time":1671727801220,"pid":18252,"hostname":"DESKTOP-G2R0246","url":"/socket.io/socket.io.js","msg":"Ruta inexistente"}
+{"level":40,"time":1671727801412,"pid":21656,"hostname":"DESKTOP-G2R0246","url":"/style.css","msg":"Ruta inexistente"}
+{"level":40,"time":1671727801988,"pid":21656,"hostname":"DESKTOP-G2R0246","url":"/favicon.ico","msg":"Ruta inexistente"}

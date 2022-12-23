@@ -1,7 +1,7 @@
 import {Router} from 'express';
 
 import {loginMongodb} from '../controllers/login.js';
-import {controllerProducts} from '../controllers/mongodbProducts.js';
+import {controllerProducts} from '../controllers/controllerProducts.js';
 
 export const routeProducts = Router();
 
