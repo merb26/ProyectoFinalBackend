@@ -10,9 +10,11 @@ export const serviceMessages = {
         new MessagesRepo()
           .save(message)
           .then(() => console.log('Message saved'));
-        new MessagesRepo().getAll().then((messages) => {
-          serverIO.sockets.emit('messages', messages);
-        });
+        setTimeout(() => {
+          new MessagesRepo().getAll().then((messages) => {
+            serverIO.sockets.emit('messages', messages);
+          });
+        }, 1000);
       });
 
       new MessagesRepo().getAll().then((messages) => {
