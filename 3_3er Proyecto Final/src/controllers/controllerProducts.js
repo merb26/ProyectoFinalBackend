@@ -1,11 +1,12 @@
 import {ProductsMongoDAO} from '../dao/productsMongoDAO.js';
 import {userLogin} from './controllerLogin.js';
+import {serviceProducts} from '../services/serviceProducts.js';
 
 const dao = new ProductsMongoDAO();
 
 export const controllerProducts = {
   getProducts: async (req, res) => {
-    const products = await dao.getAll();
+    const products = await serviceProducts.getProducts();
 
     res.render('./products/listProducts', {products, userLogin});
   },
@@ -13,7 +14,7 @@ export const controllerProducts = {
   getProductUpdate: async (req, res) => {
     const {id} = req.params;
 
-    const product = await dao.getById(id);
+    const product = await serviceProducts.getProductUpdate(id);
 
     res.render('./products/updateProduct', {product});
   },
@@ -21,7 +22,7 @@ export const controllerProducts = {
   getProduct: async (req, res) => {
     const {id} = req.params;
 
-    const product = await dao.getById(id);
+    const product = serviceProducts.getProduct(id);
 
     product
       ? res.render('./products/product', {product, userLogin})
@@ -31,7 +32,7 @@ export const controllerProducts = {
   getProductsByCategory: async (req, res) => {
     const {category} = req.params;
 
-    const products = await dao.getByCategory(category);
+    const products = serviceProducts.getProductsByCategory(category);
 
     res.render('./products/category', {products, userLogin});
   },
@@ -39,7 +40,7 @@ export const controllerProducts = {
   saveProduct: async (req, res) => {
     const product = {...req.body, timestamp: Date.now()};
 
-    dao.save(product);
+    serviceProducts.saveProduct(product);
 
     res.redirect('/products');
   },
@@ -48,14 +49,15 @@ export const controllerProducts = {
     const _id = req.params.id;
     const product = {...req.body, _id};
 
-    dao.update(product);
+    serviceProducts.updateProduct(product);
 
-    res.json({message: 'ok'});
+    res.json({message: 'El producto fue actualizado'});
   },
+
   removeProduct: async (req, res) => {
     const _id = req.params.id;
 
-    dao.deleteById(_id);
+    serviceProducts.removeProduct(_id);
 
     res.json({message: 'ok'});
   },
