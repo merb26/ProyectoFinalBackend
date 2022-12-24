@@ -3,9 +3,9 @@ import {CarsMongoDAO} from '../dao/carsMongoDAO.js';
 import {OrdersMongoDAO} from '../dao/ordersMongoDAO.js';
 const args = yargs(process.argv.slice(2)).argv;
 
-import {newOrder} from '../apis/newOrder.js';
+import {newOrder} from '../utils/newOrder.js';
 import {userLogin} from '../controllers/controllerLogin.js';
-import {sendMail} from '../apis/sendMail.js';
+import {sendMail} from '../utils/sendMail.js';
 import {ProductsMongoDAO} from '../dao/productsMongoDAO.js';
 
 const daoCars = new CarsMongoDAO();

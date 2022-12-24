@@ -2,8 +2,8 @@ import {Router} from 'express';
 import passport from 'passport';
 export const routeRegister = Router();
 
-import {countries} from '../apis/prefijosInternacionales.js';
-import {loggerErr} from '../apis/loggers/logger.js';
+import {countries} from '../utils/prefijosInternacionales.js';
+import {loggerErr} from '../utils/loggers/logger.js';
 
 // /register
 
