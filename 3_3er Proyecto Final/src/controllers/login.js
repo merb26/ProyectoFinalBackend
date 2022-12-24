@@ -3,7 +3,6 @@ import yargs from 'yargs/yargs';
 const args = yargs(process.argv.slice(2)).argv;
 
 import {usersMongoDAO} from '../dao/usersMongoDAO.js';
-import {sendMail} from '../apis/sendMail.js';
 
 const dao = new usersMongoDAO();
 
@@ -48,19 +47,6 @@ export const loginMongodb = {
     userLogin = newUser;
 
     const userMongoDB = await dao.save(newUser);
-
-    const toEmail = args.EMAIL || 'manuele.ramirez.26@gmail.com';
-
-    const message = `
-    Nombre: ${newUser.name}
-    <br>
-    Email: ${newUser.email}
-    <br>
-    Dirección: ${newUser.address}
-    <br>
-    Teléfono: ${newUser.phone}
-    `;
-    sendMail(toEmail, `Nuevo registro`, message);
 
     return done(null, userMongoDB);
   },

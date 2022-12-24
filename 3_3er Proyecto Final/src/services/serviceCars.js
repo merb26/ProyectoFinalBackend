@@ -5,13 +5,14 @@ const args = yargs(process.argv.slice(2)).argv;
 
 import {newOrder} from '../apis/newOrder.js';
 import {userLogin} from '../controllers/login.js';
+import {sendMail} from '../apis/sendMail.js';
 
 const daoCars = new CarsMongoDAO();
 const daoOrders = new OrdersMongoDAO();
 
 export const serviceCars = {
   getOrder: async () => {
-    const subject = `Nuevo pedido de ${userLogin.name} (${userLogin.email})`;
+    const subject = `Detalles del pedido de ${userLogin.name}`;
 
     const car = await daoCars.getAll();
 
@@ -35,16 +36,10 @@ export const serviceCars = {
       dateAndHour,
     };
 
-    // console.log(orderM);
     daoOrders.save(orderM);
 
-    // const email = args.EMAIL || 'manuele.ramirez.26@gmail.com';
-    // sendMail(email, subject, order.message)
-
-    // const phoneAdmin = args.PHONE;
-    // sendWP(order.messageWhatsapp, phoneAdmin)
-
-    const messageSMS = 'Tu pedido se ha realizado con éxito, está en proceso.';
+    const email = userLogin.email || 'manuele.ramirez.26@gmail.com';
+    sendMail(email, subject, order.message);
 
     daoCars.delete();
   },
