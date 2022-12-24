@@ -30,7 +30,7 @@ routerCar.put(
 routerCar.delete(
   '/1/products/:id_prod',
   controllerLogin.authentic,
-  controllerCars.removeProductoOnCar
+  controllerCars.removeProductOnCar
 );
 
 routerCar.delete('/:id', controllerLogin.authentic, controllerCars.removeCar);
