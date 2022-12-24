@@ -20,7 +20,7 @@ import {routeRegister} from './src/routes/routeRegister.js';
 import {routeProducts} from './src/routes/routeProducts.js';
 import {routerCar} from './src/routes/routerCar.js';
 import {routeOrder} from './src/routes/routeOrder.js';
-import {routeMessages} from './src/routes/routeChat.js';
+import {routeMessages} from './src/routes/routeMessages.js';
 import {loggerCons, loggerWarn} from './src/apis/loggers/logger.js';
 import {connectServerIO} from './src/controllers/controllerMessages.js';
 

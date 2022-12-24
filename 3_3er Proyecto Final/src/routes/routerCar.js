@@ -1,36 +1,36 @@
 import {Router} from 'express';
 
-import {loginMongodb} from '../controllers/login.js';
+import {controllerLogin} from '../controllers/controllerLogin.js';
 import {controllerCars} from '../controllers/controllerCars.js';
 
 export const routerCar = Router();
 
 // /car
 
-routerCar.get('/1/products', loginMongodb.authentic, controllerCars.getCars);
+routerCar.get('/1/products', controllerLogin.authentic, controllerCars.getCars);
 
 routerCar.get(
   '/formUpdate/:id',
-  loginMongodb.authentic,
+  controllerLogin.authentic,
   controllerCars.getProductOnCar
 );
 
 routerCar.post(
   '/:id/products',
-  loginMongodb.authentic,
+  controllerLogin.authentic,
   controllerCars.saveProductOnCar
 );
 
 routerCar.put(
   '/:id',
-  loginMongodb.authentic,
+  controllerLogin.authentic,
   controllerCars.updateProductOnCar
 );
 
 routerCar.delete(
   '/1/products/:id_prod',
-  loginMongodb.authentic,
+  controllerLogin.authentic,
   controllerCars.removeProductoOnCar
 );
 
-routerCar.delete('/:id', loginMongodb.authentic, controllerCars.removeCar);
+routerCar.delete('/:id', controllerLogin.authentic, controllerCars.removeCar);

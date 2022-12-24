@@ -8,7 +8,7 @@ const dao = new usersMongoDAO();
 
 export let userLogin = {};
 
-export const loginMongodb = {
+export const controllerLogin = {
   authentic: (req, res, next) => {
     req.isAuthenticated() ? next() : res.redirect('/');
   },

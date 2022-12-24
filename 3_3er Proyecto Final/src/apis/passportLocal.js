@@ -1,19 +1,19 @@
-import passport from "passport"
-import LocalStrategy from "passport-local"
+import passport from 'passport';
+import LocalStrategy from 'passport-local';
 
-import { loginMongodb } from "../controllers/login.js"
+import {controllerLogin} from '../controllers/controllerLogin.js';
 
-passport.use("login", new LocalStrategy(loginMongodb.passportLogin))
+passport.use('login', new LocalStrategy(controllerLogin.passportLogin));
 
 passport.use(
-  "signup",
-  new LocalStrategy({ passReqToCallback: true }, loginMongodb.passportSignup)
-)
+  'signup',
+  new LocalStrategy({passReqToCallback: true}, controllerLogin.passportSignup)
+);
 
 passport.serializeUser((user, done) => {
-  done(null, user.id)
-})
+  done(null, user.id);
+});
 
-passport.deserializeUser(loginMongodb.deserialize)
+passport.deserializeUser(controllerLogin.deserialize);
 
-export default passport
+export default passport;
