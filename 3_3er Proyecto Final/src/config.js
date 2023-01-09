@@ -5,7 +5,7 @@ const args = yargs(process.argv.slice(2)).argv;
 
 export const config = {
   URL_MONGODB: process.env.URL_MONGODB,
-  PORT: args.PORT || 8080,
+  PORT: process.env.PORT || 8080,
   SECRET: process.env.SECRET || 'MY-SECRET',
   MODO: args.MODO || 'fork',
   NODE_ENV: process.env.NODE_ENV || 'develop',
