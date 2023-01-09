@@ -95,7 +95,7 @@ app.set('view engine', 'pug');
 
 const modo = config.MODO;
 
-if (cluster.isPrimary && modo.toLowerCase() != 'fork') {
+if (cluster.isPrimary && modo.toLowerCase() == 'cluster') {
   loggerCons.info({level: 'info'}, `Master ${process.pid} is running`);
 
   for (let index = 0; index < cpus; index++) {
