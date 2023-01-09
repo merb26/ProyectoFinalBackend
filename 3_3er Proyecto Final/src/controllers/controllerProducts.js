@@ -22,7 +22,7 @@ export const controllerProducts = {
   getProduct: async (req, res) => {
     const {id} = req.params;
 
-    const product = serviceProducts.getProduct(id);
+    const product = await serviceProducts.getProduct(id);
 
     product
       ? res.render('./products/product', {product, userLogin})
@@ -32,7 +32,7 @@ export const controllerProducts = {
   getProductsByCategory: async (req, res) => {
     const {category} = req.params;
 
-    const products = serviceProducts.getProductsByCategory(category);
+    const products = await serviceProducts.getProductsByCategory(category);
 
     res.render('./products/category', {products, userLogin});
   },

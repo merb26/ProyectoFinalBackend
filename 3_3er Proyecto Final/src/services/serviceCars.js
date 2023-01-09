@@ -80,12 +80,15 @@ export const serviceCars = {
 
   getProductOnCar: async (id) => {
     const car = await daoCars.getAll();
+    let productUpdate;
 
     car[0].products.forEach((product) => {
       if (product._id == id) {
-        return product;
+        productUpdate = product;
       }
     });
+
+    return productUpdate;
   },
 
   saveProductOnCar: async (idProduct, amount) => {
@@ -121,7 +124,9 @@ export const serviceCars = {
     const car = await daoCars.getAll();
 
     car[0].products.forEach((product) => {
-      if (product._id == id) product.amount = productUpdate.amount;
+      if (product._id == id) {
+        product.amount = productUpdate.amount;
+      }
     });
 
     daoCars.update(car[0]);

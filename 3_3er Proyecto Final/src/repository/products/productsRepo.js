@@ -40,26 +40,14 @@ export class RepoProducts {
   }
 
   async saveProduct(product) {
-    const productsDB = await this.dao.save(product);
-
-    const productsDTO = asDTO(productsDB);
-
-    return productsDTO;
+    await this.dao.save(product);
   }
 
   async updateProduct(product) {
-    const productsDB = await this.dao.update(product);
-
-    const productsDTO = asDTO(productsDB);
-
-    return productsDTO;
+    await this.dao.update(product);
   }
 
   async removeProduct(_id) {
-    const productsDB = await this.dao.deleteById(_id);
-
-    const productsDTO = asDTO(productsDB);
-
-    return productsDTO;
+    await this.dao.deleteById(_id);
   }
 }

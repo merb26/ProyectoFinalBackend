@@ -21,8 +21,10 @@ import {routeProducts} from './src/routes/routeProducts.js';
 import {routerCar} from './src/routes/routerCar.js';
 import {routeOrder} from './src/routes/routeOrder.js';
 import {routeMessages} from './src/routes/routeMessages.js';
+import {routeInfo} from './src/routes/routeInfo.js';
 import {loggerCons, loggerWarn} from './src/utils/loggers/logger.js';
 import {connectServerIO} from './src/controllers/controllerMessages.js';
+import {config} from './src/config.js';
 
 dotenv.config();
 
@@ -57,7 +59,7 @@ const URL = process.env.URL_MONGODB;
 
 app.use(
   session({
-    secret: process.env.SECRET || 'mY_seCret',
+    secret: config.SECRET,
     store: MongoStore.create({
       mongoUrl: process.env.URL_MONGODB,
       mongoOptions: {
@@ -66,7 +68,7 @@ app.use(
       },
     }),
     cookie: {
-      maxAge: 600 * 1000,
+      maxAge: config.SESSION_EXPIRES,
     },
     resave: false,
     saveUninitialized: false,
@@ -91,7 +93,7 @@ app.set('view engine', 'pug');
 /*                                      /                                     */
 /* -------------------------------------------------------------------------- */
 
-const modo = args.MODO || '';
+const modo = config.MODO;
 
 if (cluster.isPrimary && modo.toLowerCase() == 'cluster') {
   loggerCons.info({level: 'info'}, `Master ${process.pid} is running`);
@@ -114,6 +116,7 @@ if (cluster.isPrimary && modo.toLowerCase() == 'cluster') {
   app.use('/products', routeProducts);
   app.use('/order', routeOrder);
   app.use('/chat', routeMessages);
+  app.use('/info', routeInfo);
 
   /* -------------------------------------------------------------------------- */
   /*                                  WebSocket                                 */
@@ -125,7 +128,7 @@ if (cluster.isPrimary && modo.toLowerCase() == 'cluster') {
   /*                                      /                                     */
   /* -------------------------------------------------------------------------- */
 
-  const PORT = process.env.PORT || 8080;
+  const PORT = config.PORT;
   serverHttp.listen(PORT, () => {
     loggerCons.info(
       {level: 'info'},

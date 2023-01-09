@@ -17,7 +17,7 @@ export const controllerCars = {
   },
 
   getCars: async (req, res) => {
-    const result = serviceCars.getCars();
+    const result = await serviceCars.getCars();
 
     res.render('./car/productsSelects', result);
   },
@@ -25,7 +25,7 @@ export const controllerCars = {
   getProductOnCar: async (req, res) => {
     const {id} = req.params;
 
-    const product = serviceCars.getProductOnCar(id);
+    const product = await serviceCars.getProductOnCar(id);
 
     res.render('./car/updateCar', {product});
   },
@@ -40,6 +40,8 @@ export const controllerCars = {
   updateProductOnCar: async (req, res) => {
     const {id} = req.params;
     const {productUpdate} = req.body;
+
+    serviceCars.updateProductOnCar(id, productUpdate);
 
     res.json({message: 'producto actualizado del carrito'});
   },

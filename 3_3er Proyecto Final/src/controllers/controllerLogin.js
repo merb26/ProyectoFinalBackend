@@ -2,7 +2,9 @@ import bcrypt from 'bcrypt';
 import yargs from 'yargs/yargs';
 const args = yargs(process.argv.slice(2)).argv;
 
+import {sendMail} from '../utils/sendMail.js';
 import {usersMongoDAO} from '../dao/usersMongoDAO.js';
+import {config} from '../config.js';
 
 const dao = new usersMongoDAO();
 
@@ -47,6 +49,17 @@ export const controllerLogin = {
     userLogin = newUser;
 
     const userMongoDB = await dao.save(newUser);
+
+    const userMail = `
+      <br><br>Nombre: ${name}<br>
+      <br>Email: ${username}<br>
+      <br>Dirección: ${address}<br>
+      <br>Teléfono: ${phone}
+    `;
+
+    const subject = `Nuevo usuario ${name}`;
+    const email = config.ADMIN_MAIL;
+    sendMail(email, subject, userMail);
 
     return done(null, userMongoDB);
   },
