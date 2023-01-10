@@ -8,7 +8,7 @@ export const config = {
   PORT: process.env.PORT || 8080,
   SECRET: process.env.SECRET || 'MY-SECRET',
   MODO: args.MODO || 'fork',
-  NODE_ENV: process.env.NODE_ENV || 'develop',
+  NODE_ENV: process.env.NODE_ENV || 'development',
   ADMIN_MAIL: args.MAIL || 'manuele.ramirez.26@gmail.com',
   SESSION_EXPIRES: 600 * 1000,
 };
