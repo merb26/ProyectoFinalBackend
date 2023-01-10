@@ -2,7 +2,7 @@
 
 Proyecto finalizado en la carpeta /3_3er Proyecto Final
 
-## B. Instalación del proyecto
+## Instalación del proyecto
 
 - Primer paso debe clonar el repositorio
 
@@ -13,8 +13,8 @@ Proyecto finalizado en la carpeta /3_3er Proyecto Final
 * Segundo paso abra la terminal o powershell ubicandose en el directorio /3_3er Proyecto Final
   para instalar todas las dependencias que están detalladas en el fichero package.json.
 
-  Esto es posible ejecutando una de las siguientes ordenes:
+  Ejecuta el siguiente comando:
 
   ```
-  npm i | npm install
+  npm i
   ```
