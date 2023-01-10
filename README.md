@@ -18,3 +18,66 @@ Proyecto finalizado en la carpeta /3_3er Proyecto Final
   ```
   npm i
   ```
+
+##
+
+## Endpoints
+
+```
+INICIO SESIÓN
+
+/
+```
+
+```
+CERRAR SESIÓN
+
+/logout
+```
+
+```
+REGISTRO
+
+/register
+```
+
+```
+PRODUCTOS
+
+/products
+/products/:id
+/products/category/:category
+
+```
+
+```
+CHAT
+
+/chat
+/chat/:email
+```
+
+```
+CARRITO
+
+/1/products
+```
+
+```
+INFORMACIÓN Y CONFIGURACIÓN DEL SERVIDOR
+
+/info
+```
+
+##
+
+## Tecnologías
+
+- Node.js
+- MongoDB
+- Passport
+- Bcrypt
+- Websocket
+- Dotenv
+- Pug
+- Nodemailer
