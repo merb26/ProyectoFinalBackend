@@ -10,6 +10,7 @@ loggerCons.info({leve: 'info'}, {environment: NODE_ENV});
 
 export let config;
 if (NODE_ENV == 'production') {
+  //Configuración para producción
   config = {
     ARGS: process.env,
     URL_MONGODB: process.env.URL_MONGODB,
@@ -20,6 +21,7 @@ if (NODE_ENV == 'production') {
     SESSION_EXPIRES: 600 * 1000,
   };
 } else {
+  //Configuración para desarrollo
   config = {
     ARGS: args,
     URL_MONGODB: process.env.URL_MONGODB,
