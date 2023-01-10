@@ -8,11 +8,25 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 
 loggerCons.info({leve: 'info'}, {environment: NODE_ENV});
 
-export const config = {
-  URL_MONGODB: process.env.URL_MONGODB,
-  PORT: process.env.PORT || 8080,
-  SECRET: process.env.SECRET || 'MY-SECRET',
-  MODO: args.MODO || 'fork',
-  ADMIN_MAIL: process.env.MAIL || 'manuele.ramirez.26@gmail.com',
-  SESSION_EXPIRES: 600 * 1000,
-};
+export let config;
+if (NODE_ENV == 'production') {
+  config = {
+    ARGS: process.env,
+    URL_MONGODB: process.env.URL_MONGODB,
+    PORT: process.env.PORT || 8080,
+    SECRET: process.env.SECRET || 'MY-APP-SECRET',
+    MODO: args.MODO || 'fork',
+    ADMIN_MAIL: process.env.MAIL || 'manuele.ramirez.26@gmail.com',
+    SESSION_EXPIRES: 600 * 1000,
+  };
+} else {
+  config = {
+    ARGS: args,
+    URL_MONGODB: process.env.URL_MONGODB,
+    PORT: process.env.PORT || 8080,
+    SECRET: process.env.SECRET || 'MY-SECRET',
+    MODO: args.MODO || 'fork',
+    ADMIN_MAIL: args.MAIL || 'manuele.ramirez.26@gmail.com',
+    SESSION_EXPIRES: 600 * 1000,
+  };
+}

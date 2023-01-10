@@ -8,7 +8,7 @@ import {config} from '../config.js';
 export const serviceInfo = {
   getInfoProcess: (req) => {
     const info = {
-      args,
+      args: config.ARGS,
       platform: process.platform,
       node: process.version,
       rss: process.memoryUsage().rss,
@@ -17,7 +17,6 @@ export const serviceInfo = {
       id: process.pid,
       numCPUs: cpus,
       port: config.PORT,
-      mongoUrl: config.URL_MONGODB,
       mailAdmin: config.ADMIN_MAIL,
     };
 
